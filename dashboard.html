@@ -20,28 +20,27 @@
           <p class="brand-label" aria-label="Lavas Labs">LAVAS LABS</p>
         </header>
         <nav class="sidebar-nav">
-          <a href="#overview" class="nav-item active" data-i18n="navOverview">
-            <span class="nav-icon">📊</span>
-            <span>概览</span>
+          <div class="nav-group">
+            <a href="#overview" class="nav-item active" data-i18n="navOverview">
+              <span>概览</span>
+            </a>
+          <a href="#virtual-cards" class="nav-item nav-sub-item" data-i18n="navVirtualCards">
+            <span data-i18n="navVirtualCards">My virtual cards</span>
           </a>
+          </div>
           <a href="wallet.html" class="nav-item" data-i18n="navWallet">
-            <span class="nav-icon">💼</span>
             <span>钱包</span>
           </a>
           <a href="#employees" class="nav-item" data-i18n="navEmployees">
-            <span class="nav-icon">👥</span>
             <span>员工管理</span>
           </a>
           <a href="#transactions" class="nav-item" data-i18n="navTransactions">
-            <span class="nav-icon">💳</span>
             <span>交易记录</span>
           </a>
           <a href="#expenses" class="nav-item" data-i18n="navExpenses">
-            <span class="nav-icon">📈</span>
             <span>费用分析</span>
           </a>
-          <a href="#settings" class="nav-item" data-i18n="navSettings">
-            <span class="nav-icon">⚙️</span>
+          <a href="settings.html" class="nav-item" data-i18n="navSettings">
             <span>设置</span>
           </a>
         </nav>
@@ -57,7 +56,12 @@
           <div class="header-right">
             <section class="language-fab" aria-label="Language selector">
               <input type="checkbox" id="lang-toggle" />
-              <label for="lang-toggle" class="fab" title="Change language">🌐</label>
+              <label for="lang-toggle" class="fab" title="Change language">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+              </label>
               <div class="fab-menu" role="menu">
                 <button type="button" class="lang-option active" data-lang="zh">中文</button>
                 <button type="button" class="lang-option" data-lang="en">EN</button>
@@ -78,7 +82,6 @@
             <div class="stat-card">
               <div class="stat-header">
                 <span class="stat-label" data-i18n="statTotalBalance">总余额</span>
-                <span class="stat-icon">💰</span>
               </div>
               <div class="stat-value">
                 <span class="currency">USDT</span>
@@ -90,7 +93,6 @@
             <div class="stat-card">
               <div class="stat-header">
                 <span class="stat-label" data-i18n="statAvailable">可用余额</span>
-                <span class="stat-icon">💵</span>
               </div>
               <div class="stat-value">
                 <span class="currency">USDT</span>
@@ -102,7 +104,6 @@
             <div class="stat-card">
               <div class="stat-header">
                 <span class="stat-label" data-i18n="statEmployees">员工总数</span>
-                <span class="stat-icon">👥</span>
               </div>
               <div class="stat-value">
                 <span class="amount">42</span>
@@ -113,7 +114,6 @@
             <div class="stat-card">
               <div class="stat-header">
                 <span class="stat-label" data-i18n="statMonthlyExpense">本月支出</span>
-                <span class="stat-icon">📊</span>
               </div>
               <div class="stat-value">
                 <span class="currency">USDT</span>
@@ -129,22 +129,18 @@
           <h2 class="section-title" data-i18n="quickActions">快速操作</h2>
           <div class="actions-grid">
             <button class="action-card" data-i18n="actionDeposit">
-              <span class="action-icon">💳</span>
               <span class="action-label">法币充值</span>
               <span class="action-desc" data-i18n="actionDepositDesc">通过 Ramp 充值法币并自动转换为 USDT</span>
             </button>
             <button class="action-card" data-i18n="actionAllocate">
-              <span class="action-icon">🎯</span>
               <span class="action-label">分配额度</span>
               <span class="action-desc" data-i18n="actionAllocateDesc">为员工分配 USDT 使用额度</span>
             </button>
             <button class="action-card" data-i18n="actionOSL">
-              <span class="action-icon">🔗</span>
               <span class="action-label">OSL 集成</span>
               <span class="action-desc" data-i18n="actionOSLDesc">管理 OSL 交易所连接与配置</span>
             </button>
             <button class="action-card" data-i18n="actionReports">
-              <span class="action-icon">📄</span>
               <span class="action-label">生成报告</span>
               <span class="action-desc" data-i18n="actionReportsDesc">导出费用与交易报告</span>
             </button>
@@ -269,7 +265,146 @@
             </div>
           </div>
         </section>
+
+        <!-- Virtual Cards Page (Sub-navigation) -->
+        <section id="virtual-cards-page" class="dashboard-section virtual-cards-section" style="display: none;">
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="virtualCardsTitle">My virtual cards</h2>
+            <div class="section-header-actions">
+              <a href="#all-cards" class="view-all" data-i18n="allVirtualCards">All virtual cards →</a>
+              <button class="btn-add-card" data-i18n="addCard" onclick="openNewCardDrawer()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>新增虚拟卡</span>
+              </button>
+            </div>
+          </div>
+          <div class="virtual-cards-grid" id="virtual-cards-grid">
+            <!-- Virtual cards will be rendered here -->
+          </div>
+        </section>
       </main>
+    </div>
+
+    <!-- New Virtual Card Drawer -->
+    <div class="drawer-overlay" id="new-card-drawer-overlay" onclick="window.closeNewCardDrawer()"></div>
+    <div class="drawer" id="new-card-drawer">
+      <div class="drawer-header">
+        <button class="drawer-back" onclick="window.closeNewCardDrawer()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <h2 class="drawer-title" data-i18n="newCardTitle">New virtual card</h2>
+        <button class="drawer-close" onclick="window.closeNewCardDrawer()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="drawer-body">
+        <form class="new-card-form" id="new-card-form" onsubmit="handleCardSubmit(event)">
+          <div class="form-group">
+            <label for="card-type" data-i18n="cardType">
+              <span data-i18n-text="cardType">卡种类</span><span class="required">*</span>
+            </label>
+            <select id="card-type" name="cardType" required>
+              <option value="" data-i18n="selectOption">请选择</option>
+              <option value="reap">reap</option>
+              <option value="bluebanc">bluebanc</option>
+              <option value="bridge">bridge</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="card-purpose" data-i18n="cardPurpose">
+              <span data-i18n-text="cardPurpose">What is it for?</span><span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="card-purpose"
+              name="purpose"
+              placeholder="Team Software Subscription (One Time)"
+              data-i18n-placeholder="cardPurposePlaceholder"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="card-amount" data-i18n="cardAmount">
+              <span data-i18n-text="cardAmount">Amount</span><span class="required">*</span>
+            </label>
+            <input
+              type="number"
+              id="card-amount"
+              name="amount"
+              placeholder="0.00"
+              step="0.01"
+              min="0"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="card-currency" data-i18n="cardCurrency">
+              <span data-i18n-text="cardCurrency">Currency</span><span class="required">*</span>
+            </label>
+            <select id="card-currency" name="currency" required>
+              <option value="" data-i18n="selectOption">请选择</option>
+              <option value="USD">USD</option>
+              <option value="HKD">HKD</option>
+              <option value="EUR">EUR</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="card-frequency" data-i18n="cardFrequency">
+              <span data-i18n-text="cardFrequency">Frequency</span><span class="required">*</span>
+            </label>
+            <select id="card-frequency" name="frequency" required>
+              <option value="" data-i18n="selectOption">请选择</option>
+              <option value="Total" data-i18n="frequencyTotal">Total</option>
+              <option value="Daily" data-i18n="frequencyDaily">Daily</option>
+              <option value="Weekly" data-i18n="frequencyWeekly">Weekly</option>
+              <option value="Monthly" data-i18n="frequencyMonthly">Monthly - limit resets every calendar month</option>
+              <option value="Quarterly" data-i18n="frequencyQuarterly">Quarterly</option>
+              <option value="Yearly" data-i18n="frequencyYearly">Yearly</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="card-details" data-i18n="cardDetails">
+              <span data-i18n-text="cardDetails">Request details</span>
+            </label>
+            <textarea
+              id="card-details"
+              name="details"
+              rows="4"
+              placeholder="What else should we know about this request?"
+              data-i18n-placeholder="cardDetailsPlaceholder"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <details class="advanced-section">
+              <summary class="advanced-summary" data-i18n="advancedSettings">Advanced</summary>
+              <div class="advanced-content">
+                <p class="advanced-placeholder" data-i18n="advancedPlaceholder">
+                  Sharing / Receipts, memos, and reviews / Spending controls and restrictions
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" onclick="window.closeNewCardDrawer()" data-i18n="cancel">Cancel</button>
+            <button type="submit" class="btn-primary" data-i18n="requestCard">Request card</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <script>
@@ -319,6 +454,38 @@
             roleDesigner: "产品设计师",
             balance: "余额",
             usage: "本月使用",
+            navVirtualCards: "我的虚拟卡",
+            virtualCardsTitle: "我的虚拟卡",
+            allVirtualCards: "所有虚拟卡 →",
+            addCard: "新增虚拟卡",
+            newCardTitle: "新增虚拟卡",
+            cardType: "卡种类",
+            cardPurpose: "用途",
+            cardPurposePlaceholder: "Team Software Subscription (One Time)",
+            cardAmount: "金额",
+            cardCurrency: "货币",
+            cardFrequency: "频率",
+            cardDetails: "申请详情",
+            cardDetailsPlaceholder: "What else should we know about this request?",
+            advancedSettings: "高级设置",
+            advancedPlaceholder: "Sharing / Receipts, memos, and reviews / Spending controls and restrictions",
+            cancel: "取消",
+            requestCard: "申请卡片",
+            cardStatusPending: "待处理",
+            cardStatusActive: "激活",
+            cardStatusFrozen: "冻结",
+            cardRequested: "申请日期",
+            cardAvailable: "可用",
+            cardLimit: "限额",
+            cardApproval: "0/1 审批",
+            cardUsed: "已使用",
+            selectOption: "请选择",
+            frequencyTotal: "总计",
+            frequencyDaily: "每日",
+            frequencyWeekly: "每周",
+            frequencyMonthly: "每月 - 每月重置限额",
+            frequencyQuarterly: "每季度",
+            frequencyYearly: "每年",
           },
           en: {
             navOverview: "Overview",
@@ -364,6 +531,38 @@
             roleDesigner: "Product Designer",
             balance: "Balance",
             usage: "This Month",
+            navVirtualCards: "My virtual cards",
+            virtualCardsTitle: "My virtual cards",
+            allVirtualCards: "All virtual cards →",
+            addCard: "Add virtual card",
+            newCardTitle: "New virtual card",
+            cardType: "Card Type",
+            cardPurpose: "What is it for?",
+            cardPurposePlaceholder: "Team Software Subscription (One Time)",
+            cardAmount: "Amount",
+            cardCurrency: "Currency",
+            cardFrequency: "Frequency",
+            cardDetails: "Request details",
+            cardDetailsPlaceholder: "What else should we know about this request?",
+            advancedSettings: "Advanced",
+            advancedPlaceholder: "Sharing / Receipts, memos, and reviews / Spending controls and restrictions",
+            cancel: "Cancel",
+            requestCard: "Request card",
+            cardStatusPending: "Pending",
+            cardStatusActive: "Active",
+            cardStatusFrozen: "Frozen",
+            cardRequested: "Requested",
+            cardAvailable: "Available",
+            cardLimit: "Limit",
+            cardApproval: "0 of 1 approval",
+            cardUsed: "used",
+            selectOption: "Please select",
+            frequencyTotal: "Total",
+            frequencyDaily: "Daily",
+            frequencyWeekly: "Weekly",
+            frequencyMonthly: "Monthly - limit resets every calendar month",
+            frequencyQuarterly: "Quarterly",
+            frequencyYearly: "Yearly",
           },
           ja: {
             navOverview: "概要",
@@ -409,6 +608,38 @@
             roleDesigner: "プロダクトデザイナー",
             balance: "残高",
             usage: "今月の使用",
+            navVirtualCards: "マイ仮想カード",
+            virtualCardsTitle: "マイ仮想カード",
+            allVirtualCards: "すべての仮想カード →",
+            addCard: "仮想カードを追加",
+            newCardTitle: "新しい仮想カード",
+            cardType: "カード種類",
+            cardPurpose: "用途",
+            cardPurposePlaceholder: "Team Software Subscription (One Time)",
+            cardAmount: "金額",
+            cardCurrency: "通貨",
+            cardFrequency: "頻度",
+            cardDetails: "リクエスト詳細",
+            cardDetailsPlaceholder: "What else should we know about this request?",
+            advancedSettings: "高度な設定",
+            advancedPlaceholder: "Sharing / Receipts, memos, and reviews / Spending controls and restrictions",
+            cancel: "キャンセル",
+            requestCard: "カードをリクエスト",
+            cardStatusPending: "保留中",
+            cardStatusActive: "アクティブ",
+            cardStatusFrozen: "凍結",
+            cardRequested: "リクエスト日",
+            cardAvailable: "利用可能",
+            cardLimit: "制限",
+            cardApproval: "承認 0/1",
+            cardUsed: "使用済み",
+            selectOption: "選択してください",
+            frequencyTotal: "合計",
+            frequencyDaily: "日次",
+            frequencyWeekly: "週次",
+            frequencyMonthly: "月次 - 毎月のカレンダー月にリセット",
+            frequencyQuarterly: "四半期",
+            frequencyYearly: "年次",
           },
           de: {
             navOverview: "Übersicht",
@@ -454,6 +685,38 @@
             roleDesigner: "Produktdesigner",
             balance: "Saldo",
             usage: "Diesen Monat",
+            navVirtualCards: "Meine virtuellen Karten",
+            virtualCardsTitle: "Meine virtuellen Karten",
+            allVirtualCards: "Alle virtuellen Karten →",
+            addCard: "Virtuelle Karte hinzufügen",
+            newCardTitle: "Neue virtuelle Karte",
+            cardType: "Kartentyp",
+            cardPurpose: "Wofür ist es?",
+            cardPurposePlaceholder: "Team Software Subscription (One Time)",
+            cardAmount: "Betrag",
+            cardCurrency: "Währung",
+            cardFrequency: "Häufigkeit",
+            cardDetails: "Anfragedetails",
+            cardDetailsPlaceholder: "What else should we know about this request?",
+            advancedSettings: "Erweitert",
+            advancedPlaceholder: "Sharing / Receipts, memos, and reviews / Spending controls and restrictions",
+            cancel: "Abbrechen",
+            requestCard: "Karte anfordern",
+            cardStatusPending: "Ausstehend",
+            cardStatusActive: "Aktiv",
+            cardStatusFrozen: "Eingefroren",
+            cardRequested: "Angefordert",
+            cardAvailable: "Verfügbar",
+            cardLimit: "Limit",
+            cardApproval: "0 von 1 Genehmigung",
+            cardUsed: "verwendet",
+            selectOption: "Bitte auswählen",
+            frequencyTotal: "Gesamt",
+            frequencyDaily: "Täglich",
+            frequencyWeekly: "Wöchentlich",
+            frequencyMonthly: "Monatlich - Limit wird jeden Kalendermonat zurückgesetzt",
+            frequencyQuarterly: "Vierteljährlich",
+            frequencyYearly: "Jährlich",
           },
           vi: {
             navOverview: "Tổng quan",
@@ -499,6 +762,38 @@
             roleDesigner: "Thiết kế sản phẩm",
             balance: "Số dư",
             usage: "Tháng này",
+            navVirtualCards: "Thẻ ảo của tôi",
+            virtualCardsTitle: "Thẻ ảo của tôi",
+            allVirtualCards: "Tất cả thẻ ảo →",
+            addCard: "Thêm thẻ ảo",
+            newCardTitle: "Thẻ ảo mới",
+            cardType: "Loại thẻ",
+            cardPurpose: "Dùng để làm gì?",
+            cardPurposePlaceholder: "Team Software Subscription (One Time)",
+            cardAmount: "Số tiền",
+            cardCurrency: "Tiền tệ",
+            cardFrequency: "Tần suất",
+            cardDetails: "Chi tiết yêu cầu",
+            cardDetailsPlaceholder: "What else should we know about this request?",
+            advancedSettings: "Nâng cao",
+            advancedPlaceholder: "Sharing / Receipts, memos, and reviews / Spending controls and restrictions",
+            cancel: "Hủy",
+            requestCard: "Yêu cầu thẻ",
+            cardStatusPending: "Đang chờ",
+            cardStatusActive: "Hoạt động",
+            cardStatusFrozen: "Đã đóng băng",
+            cardRequested: "Đã yêu cầu",
+            cardAvailable: "Có sẵn",
+            cardLimit: "Giới hạn",
+            cardApproval: "0/1 phê duyệt",
+            cardUsed: "đã sử dụng",
+            selectOption: "Vui lòng chọn",
+            frequencyTotal: "Tổng",
+            frequencyDaily: "Hàng ngày",
+            frequencyWeekly: "Hàng tuần",
+            frequencyMonthly: "Hàng tháng - giới hạn được đặt lại mỗi tháng dương lịch",
+            frequencyQuarterly: "Hàng quý",
+            frequencyYearly: "Hàng năm",
           },
         };
 
@@ -510,16 +805,47 @@
           const dict = translations[lang] || translations.zh;
           document.documentElement.lang = lang;
 
-          textNodes.forEach((node) => {
+          // Update all text nodes with data-i18n
+          const allTextNodes = document.querySelectorAll("[data-i18n]");
+          allTextNodes.forEach((node) => {
             const key = node.dataset.i18n;
             if (dict[key]) {
               if (node.tagName === "INPUT" || node.tagName === "TEXTAREA") {
                 node.placeholder = dict[key];
+              } else if (node.tagName === "OPTION") {
+                node.textContent = dict[key];
+              } else if (node.tagName === "A" && node.querySelector("[data-i18n]")) {
+                // Skip anchor tags that have child elements with data-i18n
+                // The child elements will be updated separately
+                return;
               } else {
                 node.textContent = dict[key];
               }
             }
           });
+
+          // Update text nodes with data-i18n-text (for labels with required asterisk)
+          const textNodes = document.querySelectorAll("[data-i18n-text]");
+          textNodes.forEach((node) => {
+            const key = node.dataset.i18nText;
+            if (dict[key]) {
+              node.textContent = dict[key];
+            }
+          });
+
+          // Update placeholder nodes
+          const placeholderNodes = document.querySelectorAll("[data-i18n-placeholder]");
+          placeholderNodes.forEach((input) => {
+            const key = input.dataset.i18nPlaceholder;
+            if (dict[key]) {
+              input.placeholder = dict[key];
+            }
+          });
+
+          // Re-render virtual cards to update dynamic content
+          if (document.getElementById("virtual-cards-grid")) {
+            renderVirtualCards();
+          }
         }
 
         langButtons.forEach((button) => {
@@ -534,14 +860,261 @@
           });
         });
 
-        // Navigation active state
+        // Navigation active state and page switching
         const navItems = document.querySelectorAll(".nav-item");
+        const dashboardSections = document.querySelectorAll(".dashboard-section:not(#virtual-cards-page)");
+        const virtualCardsPage = document.getElementById("virtual-cards-page");
+        
+        function showDashboardOverview() {
+          // Show all dashboard sections except virtual cards page
+          dashboardSections.forEach((section) => {
+            section.style.display = "flex";
+          });
+          // Hide virtual cards page
+          if (virtualCardsPage) {
+            virtualCardsPage.style.display = "none";
+          }
+        }
+
+        function showVirtualCardsPage() {
+          // Hide all dashboard sections
+          dashboardSections.forEach((section) => {
+            section.style.display = "none";
+          });
+          // Show virtual cards page
+          if (virtualCardsPage) {
+            virtualCardsPage.style.display = "flex";
+            renderVirtualCards();
+          }
+        }
+
         navItems.forEach((item) => {
           item.addEventListener("click", (e) => {
-            e.preventDefault();
-            navItems.forEach((nav) => nav.classList.remove("active"));
-            item.classList.add("active");
+            // 只对锚点链接阻止默认行为，允许实际文件链接正常跳转
+            const href = item.getAttribute("href");
+            if (href && href.startsWith("#")) {
+              e.preventDefault();
+              navItems.forEach((nav) => nav.classList.remove("active"));
+              item.classList.add("active");
+              
+              // Switch pages based on navigation
+              if (href === "#virtual-cards") {
+                showVirtualCardsPage();
+              } else if (href === "#overview" || href === "#employees" || href === "#transactions" || href === "#expenses") {
+                showDashboardOverview();
+              }
+              // For actual file links (wallet.html, settings.html), allow normal navigation
+            }
+            // 对于实际文件链接（如 wallet.html, settings.html），允许正常跳转
           });
+        });
+
+        // Virtual Cards Data
+        let virtualCards = [
+          {
+            id: 1,
+            name: "New Advertising Card",
+            status: "Pending",
+            requestedAt: "2024-03-20",
+            spent: 0,
+            limit: 5000,
+            currency: "USD",
+            frequency: "Monthly",
+          },
+          {
+            id: 2,
+            name: "Meals & Entertainment",
+            status: "Active",
+            requestedAt: "2024-02-15",
+            spent: 625.42,
+            limit: 5000,
+            currency: "USD",
+            frequency: "Monthly",
+          },
+          {
+            id: 3,
+            name: "T&E Card",
+            status: "Active",
+            requestedAt: "2024-01-10",
+            spent: 73.80,
+            limit: 90,
+            currency: "USD",
+            frequency: "Monthly",
+          },
+        ];
+
+        function renderVirtualCards() {
+          const grid = document.getElementById("virtual-cards-grid");
+          if (!grid) return;
+
+          const currentLang = document.documentElement.lang || "zh";
+          const dict = translations[currentLang] || translations.zh;
+
+          grid.innerHTML = virtualCards
+            .map((card) => {
+              const available = card.limit - card.spent;
+              const usagePercent = (card.spent / card.limit) * 100;
+              const formattedDate = new Date(card.requestedAt).toLocaleDateString("en-US", {
+                month: "2-digit",
+                day: "2-digit",
+                year: "numeric",
+              });
+
+              const statusText = dict[`cardStatus${card.status}`] || card.status;
+              const requestedText = dict.cardRequested || "Requested";
+              const approvalText = dict.cardApproval || "0 of 1 approval";
+              const usedText = dict.cardUsed || "used";
+
+              // For Pending cards, show different layout
+              if (card.status === "Pending") {
+                return `
+                  <div class="virtual-card-item">
+                    <div class="virtual-card-header">
+                      <div class="virtual-card-title-group">
+                        <h3 class="virtual-card-name">${card.name}</h3>
+                        <p class="virtual-card-date" data-i18n="cardRequested">${requestedText} ${formattedDate}</p>
+                      </div>
+                      <span class="virtual-card-status status-${card.status.toLowerCase()}" data-i18n="cardStatus${card.status}">${statusText}</span>
+                    </div>
+                    <div class="virtual-card-content">
+                      <div class="virtual-card-pending-info">
+                        <span class="pending-text" data-i18n="cardApproval">${approvalText}</span>
+                      </div>
+                    </div>
+                    <button class="virtual-card-detail-btn" onclick="openCardDetail(${card.id})">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </button>
+                  </div>
+                `;
+              }
+
+              return `
+                <div class="virtual-card-item">
+                  <div class="virtual-card-header">
+                    <div class="virtual-card-title-group">
+                      <h3 class="virtual-card-name">${card.name}</h3>
+                      <p class="virtual-card-date" data-i18n="cardRequested">${requestedText} ${formattedDate}</p>
+                    </div>
+                    <span class="virtual-card-status status-${card.status.toLowerCase()}" data-i18n="cardStatus${card.status}">${statusText}</span>
+                  </div>
+                  <div class="virtual-card-content">
+                    <div class="virtual-card-amount">
+                      <div class="amount-spent">
+                        <span class="spent-value">$${card.spent.toFixed(2)}</span>
+                      </div>
+                      <div class="amount-limit">
+                        <span class="limit-value">$${card.limit.toFixed(2)} ${card.currency} / ${card.frequency}</span>
+                      </div>
+                    </div>
+                    <div class="virtual-card-progress">
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${usagePercent}%"></div>
+                      </div>
+                      <span class="progress-text" data-i18n="cardUsed">${usagePercent.toFixed(1)}% ${usedText}</span>
+                    </div>
+                  </div>
+                  <button class="virtual-card-detail-btn" onclick="openCardDetail(${card.id})">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </button>
+                </div>
+              `;
+            })
+            .join("");
+
+          // Re-apply i18n after rendering
+          applyLanguage(currentLang);
+        }
+
+        // Initialize on page load
+        function initializePage() {
+          // Show dashboard overview by default
+          showDashboardOverview();
+          // Pre-render virtual cards (but don't show the page)
+          renderVirtualCards();
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initializePage);
+        } else {
+          initializePage();
+        }
+
+        // Expose functions to global scope for onclick handlers
+        window.openNewCardDrawer = function() {
+          const drawer = document.getElementById("new-card-drawer");
+          const overlay = document.getElementById("new-card-drawer-overlay");
+          if (drawer && overlay) {
+            drawer.classList.add("active");
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+          }
+        };
+
+        window.closeNewCardDrawer = function() {
+          const drawer = document.getElementById("new-card-drawer");
+          const overlay = document.getElementById("new-card-drawer-overlay");
+          if (drawer && overlay) {
+            drawer.classList.remove("active");
+            overlay.classList.remove("active");
+            document.body.style.overflow = "";
+            // Reset form
+            const form = document.getElementById("new-card-form");
+            if (form) {
+              form.reset();
+            }
+          }
+        };
+
+        function handleCardSubmit(event) {
+          event.preventDefault();
+          const form = event.target;
+          const formData = new FormData(form);
+
+          // Validation
+          const amount = parseFloat(formData.get("amount"));
+          if (!amount || amount <= 0) {
+            alert("Please enter a valid amount");
+            return;
+          }
+
+          // Create new card
+          const newCard = {
+            id: virtualCards.length + 1,
+            name: formData.get("purpose") || "New Card",
+            status: "Pending",
+            requestedAt: new Date().toISOString().split("T")[0],
+            spent: 0,
+            limit: amount,
+            currency: formData.get("currency"),
+            frequency: formData.get("frequency"),
+          };
+
+          virtualCards.push(newCard);
+          renderVirtualCards();
+          window.closeNewCardDrawer();
+        }
+
+        function openCardDetail(cardId) {
+          // Placeholder for card detail drawer
+          console.log("Open card detail:", cardId);
+        }
+
+        // Close drawer when clicking overlay
+        document.addEventListener("click", (e) => {
+          if (e.target.id === "new-card-drawer-overlay") {
+            window.closeNewCardDrawer();
+          }
+        });
+
+        // Close drawer on Escape key
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            window.closeNewCardDrawer();
+          }
         });
 
         applyLanguage("zh");

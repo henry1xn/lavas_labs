@@ -21,27 +21,21 @@
         </header>
         <nav class="sidebar-nav">
           <a href="dashboard.html" class="nav-item" data-i18n="navOverview">
-            <span class="nav-icon">📊</span>
             <span>概览</span>
           </a>
           <a href="wallet.html" class="nav-item active" data-i18n="navWallet">
-            <span class="nav-icon">💼</span>
             <span>钱包</span>
           </a>
           <a href="#employees" class="nav-item" data-i18n="navEmployees">
-            <span class="nav-icon">👥</span>
             <span>员工管理</span>
           </a>
           <a href="#transactions" class="nav-item" data-i18n="navTransactions">
-            <span class="nav-icon">💳</span>
             <span>交易记录</span>
           </a>
           <a href="#expenses" class="nav-item" data-i18n="navExpenses">
-            <span class="nav-icon">📈</span>
             <span>费用分析</span>
           </a>
-          <a href="#settings" class="nav-item" data-i18n="navSettings">
-            <span class="nav-icon">⚙️</span>
+          <a href="settings.html" class="nav-item" data-i18n="navSettings">
             <span>设置</span>
           </a>
         </nav>
@@ -57,17 +51,22 @@
           <div class="header-right">
             <section class="language-fab" aria-label="Language selector">
               <input type="checkbox" id="lang-toggle" />
-              <label for="lang-toggle" class="fab" title="Change language">🌐</label>
-              <div class="fab-menu" role="menu">
-                <button type="button" class="lang-option active" data-lang="zh">中文</button>
-                <button type="button" class="lang-option" data-lang="en">EN</button>
-                <button type="button" class="lang-option" data-lang="ja">日本語</button>
-                <button type="button" class="lang-option" data-lang="de">Deutsch</button>
-                <button type="button" class="lang-option" data-lang="vi">Tiếng Việt</button>
+              <label for="lang-toggle" class="fab" title="Change language">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+              </label>
+              <div class="fab-menu" role="listbox" aria-label="语言选择">
+                <button type="button" class="lang-option active" data-lang="zh" role="option" aria-selected="true">中文</button>
+                <button type="button" class="lang-option" data-lang="en" role="option" aria-selected="false">EN</button>
+                <button type="button" class="lang-option" data-lang="ja" role="option" aria-selected="false">日本語</button>
+                <button type="button" class="lang-option" data-lang="de" role="option" aria-selected="false">Deutsch</button>
+                <button type="button" class="lang-option" data-lang="vi" role="option" aria-selected="false">Tiếng Việt</button>
               </div>
             </section>
             <div class="user-menu">
-              <button class="user-avatar" data-i18n="userMenu">用户</button>
+              <button class="user-avatar" data-i18n="userMenu" id="user-avatar-btn">用户</button>
             </div>
           </div>
         </header>
@@ -77,33 +76,59 @@
           <div class="total-assets-header">
             <div class="total-assets-title">
               <h2 data-i18n="totalAssets">总资产</h2>
-              <button class="eye-toggle" title="Toggle visibility">👁️</button>
+              <button class="eye-toggle" title="Toggle visibility" aria-label="切换显示/隐藏总资产">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
             </div>
             <div class="total-assets-value">
               <div class="currency-selector">
-                <span class="currency-display" data-i18n="currency">USDT</span>
-                <select class="currency-dropdown">
-                  <option value="USDT">USDT</option>
+                <select class="currency-dropdown" id="currency-dropdown" aria-label="选择币种">
+                  <option value="CNY" selected>CNY</option>
                   <option value="HKD">HKD</option>
                   <option value="USD">USD</option>
-                  <option value="CNY">CNY</option>
+                  <option value="JPY">JPY</option>
+                  <option value="EUR">EUR</option>
+                  <option value="VND">VND</option>
                 </select>
               </div>
               <div class="total-amount">1,234,567.89</div>
             </div>
           </div>
           <div class="wallet-actions">
-            <button class="wallet-action-btn primary" data-i18n="actionDeposit">
-              <span class="action-icon">⬇️</span>
+            <button class="wallet-action-btn primary" data-i18n="actionDeposit" id="deposit-btn-main" aria-label="充值" title="充值">
+              <span class="action-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 5v14M5 12l7-7 7 7"/>
+                </svg>
+              </span>
               <span>充值</span>
             </button>
-            <button class="wallet-action-btn" data-i18n="actionWithdraw">
-              <span class="action-icon">⬆️</span>
+            <button class="wallet-action-btn" data-i18n="actionWithdraw" aria-label="提现" title="提现">
+              <span class="action-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 19V5M5 12l7 7 7-7"/>
+                </svg>
+              </span>
               <span>提现</span>
             </button>
-            <button class="wallet-action-btn" data-i18n="actionTransfer">
-              <span class="action-icon">↔️</span>
+            <button class="wallet-action-btn" data-i18n="actionTransfer" aria-label="转账" title="转账">
+              <span class="action-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17L17 7M7 7h10v10"/>
+                </svg>
+              </span>
               <span>转账</span>
+            </button>
+            <button class="wallet-action-btn" data-i18n="actionExchange" id="exchange-btn-main" aria-label="兑换" title="兑换">
+              <span class="action-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+                </svg>
+              </span>
+              <span>兑换</span>
             </button>
           </div>
         </section>
@@ -112,14 +137,12 @@
         <section class="wallet-section">
           <div class="asset-summary-grid">
             <div class="asset-summary-card">
-              <div class="summary-icon">💰</div>
               <div class="summary-info">
                 <div class="summary-label" data-i18n="summaryFunding">资金</div>
                 <div class="summary-value">80.94</div>
               </div>
             </div>
             <div class="asset-summary-card">
-              <div class="summary-icon">⚡</div>
               <div class="summary-info">
                 <div class="summary-label" data-i18n="summaryExchange">兑换</div>
                 <div class="summary-value">1,085.11</div>
@@ -134,17 +157,17 @@
             <h3 class="assets-title" data-i18n="assets">资产</h3>
             <div class="assets-controls">
               <div class="asset-filters">
-                <button class="filter-tab active" data-filter="all" data-i18n="filterAll">全部</button>
-                <button class="filter-tab" data-filter="fiat" data-i18n="filterFiat">法币</button>
-                <button class="filter-tab" data-filter="digital" data-i18n="filterDigital">数字货币</button>
-                <button class="filter-tab" data-filter="wealth" data-i18n="filterWealth">财富</button>
+                <button class="filter-tab active" data-filter="all" data-i18n="filterAll" aria-label="显示全部资产" title="显示全部资产">全部</button>
+                <button class="filter-tab" data-filter="fiat" data-i18n="filterFiat" aria-label="显示法币资产" title="显示法币资产">法币</button>
+                <button class="filter-tab" data-filter="digital" data-i18n="filterDigital" aria-label="显示数字货币资产" title="显示数字货币资产">数字货币</button>
+                <button class="filter-tab" data-filter="wealth" data-i18n="filterWealth" aria-label="显示财富资产" title="显示财富资产">财富</button>
               </div>
               <div class="assets-options">
                 <label class="checkbox-option">
-                  <input type="checkbox" id="hide-zero" />
+                  <input type="checkbox" id="hide-zero" aria-label="隐藏零余额" title="隐藏零余额" />
                   <span data-i18n="hideZero">隐藏零余额</span>
                 </label>
-                <button class="download-btn" data-i18n="downloadCSV">下载 CSV</button>
+                <button class="download-btn" data-i18n="downloadCSV" aria-label="下载CSV文件" title="下载CSV文件">下载 CSV</button>
               </div>
             </div>
           </div>
@@ -155,8 +178,8 @@
                   <th data-i18n="colAsset">资产</th>
                   <th data-i18n="colType">类型</th>
                   <th data-i18n="colAmount">数量</th>
-                  <th data-i18n="colPrice">价格 (USDT)</th>
-                  <th data-i18n="colValue">价值 (USDT)</th>
+                  <th data-i18n="colPrice">价格</th>
+                  <th data-i18n="colValue">价值</th>
                   <th data-i18n="colAction">操作</th>
                 </tr>
               </thead>
@@ -164,7 +187,9 @@
                 <tr data-type="fiat">
                   <td>
                     <div class="asset-cell">
-                      <span class="asset-icon">🇭🇰</span>
+                      <span class="asset-icon">
+                        <img src="images/HKD.png" alt="HKD" />
+                      </span>
                       <span class="asset-name">HKD</span>
                     </div>
                   </td>
@@ -174,16 +199,19 @@
                   <td>999.99</td>
                   <td>
                     <div class="action-buttons">
-                      <button class="action-link" data-i18n="actionDeposit">充值</button>
-                      <button class="action-link" data-i18n="actionWithdraw">提现</button>
-                      <button class="action-link" data-i18n="actionTransfer">转账</button>
+                      <button class="action-link" data-i18n="actionDeposit" aria-label="充值" title="充值">充值</button>
+                      <button class="action-link" data-i18n="actionWithdraw" aria-label="提现" title="提现">提现</button>
+                      <button class="action-link" data-i18n="actionTransfer" aria-label="转账" title="转账">转账</button>
+                      <button class="action-link" data-i18n="actionExchange" data-asset="HKD" aria-label="兑换" title="兑换">兑换</button>
                     </div>
                   </td>
                 </tr>
                 <tr data-type="fiat">
                   <td>
                     <div class="asset-cell">
-                      <span class="asset-icon">🇺🇸</span>
+                      <span class="asset-icon">
+                        <img src="images/USD.png" alt="USD" />
+                      </span>
                       <span class="asset-name">USD</span>
                     </div>
                   </td>
@@ -193,111 +221,182 @@
                   <td>80.94</td>
                   <td>
                     <div class="action-buttons">
-                      <button class="action-link" data-i18n="actionDeposit">充值</button>
-                      <button class="action-link" data-i18n="actionWithdraw">提现</button>
-                      <button class="action-link" data-i18n="actionTransfer">转账</button>
+                      <button class="action-link" data-i18n="actionDeposit" aria-label="充值" title="充值">充值</button>
+                      <button class="action-link" data-i18n="actionWithdraw" aria-label="提现" title="提现">提现</button>
+                      <button class="action-link" data-i18n="actionTransfer" aria-label="转账" title="转账">转账</button>
+                      <button class="action-link" data-i18n="actionExchange" data-asset="USD" aria-label="兑换" title="兑换">兑换</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-type="fiat">
+                  <td>
+                    <div class="asset-cell">
+                      <span class="asset-icon">
+                        <img src="images/EURO.png" alt="EUR" />
+                      </span>
+                      <span class="asset-name">EUR</span>
+                    </div>
+                  </td>
+                  <td><span class="type-badge fiat" data-i18n="typeFiat">法币</span></td>
+                  <td>850.00</td>
+                  <td>8.45</td>
+                  <td>7,182.50</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-link" data-i18n="actionDeposit" aria-label="充值" title="充值">充值</button>
+                      <button class="action-link" data-i18n="actionWithdraw" aria-label="提现" title="提现">提现</button>
+                      <button class="action-link" data-i18n="actionTransfer" aria-label="转账" title="转账">转账</button>
+                      <button class="action-link" data-i18n="actionExchange" data-asset="EUR" aria-label="兑换" title="兑换">兑换</button>
                     </div>
                   </td>
                 </tr>
                 <tr data-type="digital">
                   <td>
                     <div class="asset-cell">
-                      <span class="asset-icon crypto usdt-icon">
-                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="16" cy="16" r="16" fill="#26a17b"/>
-                          <path d="M16 7c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" fill="#fff"/>
-                          <path d="M14.5 12.5h3v7h-3v-7zm-1.5 0h-1.5v7h1.5v-7zm6 0h1.5v7H19v-7z" fill="#26a17b"/>
-                        </svg>
+                      <span class="asset-icon crypto">
+                        <img src="images/USDT.png" alt="USDT" />
+                        <span class="chain-badge">
+                          <img src="images/ethereum.png" alt="Ethereum" />
+                        </span>
                       </span>
                       <span class="asset-name">USDT</span>
                     </div>
                   </td>
                   <td><span class="type-badge digital" data-i18n="typeDigital">数字货币</span></td>
-                  <td>10.947008</td>
+                  <td>6.947008</td>
                   <td>7.77</td>
-                  <td>85.11</td>
+                  <td>54.00</td>
                   <td>
                     <div class="action-buttons">
-                      <button class="action-link" data-i18n="actionDeposit">充值</button>
-                      <button class="action-link" data-i18n="actionWithdraw">提现</button>
-                      <button class="action-link" data-i18n="actionTransfer">转账</button>
+                      <button class="action-link" data-i18n="actionDeposit" aria-label="充值" title="充值">充值</button>
+                      <button class="action-link" data-i18n="actionWithdraw" aria-label="提现" title="提现">提现</button>
+                      <button class="action-link" data-i18n="actionTransfer" aria-label="转账" title="转账">转账</button>
+                      <button class="action-link" data-i18n="actionExchange" data-asset="USDT" data-network="ERC20" aria-label="兑换" title="兑换">兑换</button>
                     </div>
                   </td>
                 </tr>
                 <tr data-type="digital">
                   <td>
                     <div class="asset-cell">
-                      <span class="asset-icon crypto usdt-icon">
-                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="16" cy="16" r="16" fill="#26a17b"/>
-                          <path d="M16 7c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" fill="#fff"/>
-                          <path d="M14.5 12.5h3v7h-3v-7zm-1.5 0h-1.5v7h1.5v-7zm6 0h1.5v7H19v-7z" fill="#26a17b"/>
-                        </svg>
+                      <span class="asset-icon crypto">
+                        <img src="images/USDT.png" alt="USDT" />
+                        <span class="chain-badge">
+                          <img src="images/polygon.png" alt="Polygon" />
+                        </span>
                       </span>
-                      <span class="asset-name">USDT (TRC20)</span>
+                      <span class="asset-name">USDT</span>
                     </div>
                   </td>
                   <td><span class="type-badge digital" data-i18n="typeDigital">数字货币</span></td>
-                  <td>0.130420</td>
+                  <td>4.000000</td>
                   <td>7.77</td>
-                  <td>1.01</td>
+                  <td>31.08</td>
                   <td>
                     <div class="action-buttons">
-                      <button class="action-link" data-i18n="actionDeposit">充值</button>
-                      <button class="action-link" data-i18n="actionWithdraw">提现</button>
-                      <button class="action-link" data-i18n="actionTransfer">转账</button>
+                      <button class="action-link" data-i18n="actionDeposit" aria-label="充值" title="充值">充值</button>
+                      <button class="action-link" data-i18n="actionWithdraw" aria-label="提现" title="提现">提现</button>
+                      <button class="action-link" data-i18n="actionTransfer" aria-label="转账" title="转账">转账</button>
+                      <button class="action-link" data-i18n="actionExchange" data-asset="USDT" data-network="Polygon" aria-label="兑换" title="兑换">兑换</button>
                     </div>
                   </td>
                 </tr>
                 <tr data-type="digital">
                   <td>
                     <div class="asset-cell">
-                      <span class="asset-icon crypto usdc-icon">
-                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="16" cy="16" r="16" fill="#2775ca"/>
-                          <circle cx="16" cy="16" r="11" fill="none" stroke="#fff" stroke-width="1.5"/>
-                          <circle cx="16" cy="16" r="7" fill="none" stroke="#fff" stroke-width="1.5"/>
-                          <circle cx="16" cy="16" r="3" fill="#2775ca"/>
-                        </svg>
+                      <span class="asset-icon crypto">
+                        <img src="images/USDC.png" alt="USDC" />
+                        <span class="chain-badge">
+                          <img src="images/ethereum.png" alt="Ethereum" />
+                        </span>
                       </span>
                       <span class="asset-name">USDC</span>
                     </div>
                   </td>
                   <td><span class="type-badge digital" data-i18n="typeDigital">数字货币</span></td>
-                  <td>5.234567</td>
+                  <td>3.234567</td>
                   <td>7.77</td>
-                  <td>40.67</td>
+                  <td>25.15</td>
                   <td>
                     <div class="action-buttons">
-                      <button class="action-link" data-i18n="actionDeposit">充值</button>
-                      <button class="action-link" data-i18n="actionWithdraw">提现</button>
-                      <button class="action-link" data-i18n="actionTransfer">转账</button>
+                      <button class="action-link" data-i18n="actionDeposit" aria-label="充值" title="充值">充值</button>
+                      <button class="action-link" data-i18n="actionWithdraw" aria-label="提现" title="提现">提现</button>
+                      <button class="action-link" data-i18n="actionTransfer" aria-label="转账" title="转账">转账</button>
+                      <button class="action-link" data-i18n="actionExchange" data-asset="USDC" data-network="ERC20" aria-label="兑换" title="兑换">兑换</button>
                     </div>
                   </td>
                 </tr>
                 <tr data-type="digital">
                   <td>
                     <div class="asset-cell">
-                      <span class="asset-icon crypto usdc-icon">
-                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="16" cy="16" r="16" fill="#2775ca"/>
-                          <circle cx="16" cy="16" r="11" fill="none" stroke="#fff" stroke-width="1.5"/>
-                          <circle cx="16" cy="16" r="7" fill="none" stroke="#fff" stroke-width="1.5"/>
-                          <circle cx="16" cy="16" r="3" fill="#2775ca"/>
-                        </svg>
+                      <span class="asset-icon crypto">
+                        <img src="images/USDC.png" alt="USDC" />
+                        <span class="chain-badge">
+                          <img src="images/polygon.png" alt="Polygon" />
+                        </span>
                       </span>
-                      <span class="asset-name">USDC (TRC20)</span>
+                      <span class="asset-name">USDC</span>
                     </div>
                   </td>
                   <td><span class="type-badge digital" data-i18n="typeDigital">数字货币</span></td>
-                  <td>2.123456</td>
+                  <td>1.000000</td>
                   <td>7.77</td>
-                  <td>16.50</td>
+                  <td>7.77</td>
                   <td>
                     <div class="action-buttons">
-                      <button class="action-link" data-i18n="actionDeposit">充值</button>
-                      <button class="action-link" data-i18n="actionWithdraw">提现</button>
-                      <button class="action-link" data-i18n="actionTransfer">转账</button>
+                      <button class="action-link" data-i18n="actionDeposit" aria-label="充值" title="充值">充值</button>
+                      <button class="action-link" data-i18n="actionWithdraw" aria-label="提现" title="提现">提现</button>
+                      <button class="action-link" data-i18n="actionTransfer" aria-label="转账" title="转账">转账</button>
+                      <button class="action-link" data-i18n="actionExchange" data-asset="USDC" data-network="Polygon" aria-label="兑换" title="兑换">兑换</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-type="digital">
+                  <td>
+                    <div class="asset-cell">
+                      <span class="asset-icon crypto">
+                        <img src="images/USDC.png" alt="USDC" />
+                        <span class="chain-badge">
+                          <img src="images/arbitrum.png" alt="Arbitrum" />
+                        </span>
+                      </span>
+                      <span class="asset-name">USDC</span>
+                    </div>
+                  </td>
+                  <td><span class="type-badge digital" data-i18n="typeDigital">数字货币</span></td>
+                  <td>1.000000</td>
+                  <td>7.77</td>
+                  <td>7.77</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-link" data-i18n="actionDeposit" aria-label="充值" title="充值">充值</button>
+                      <button class="action-link" data-i18n="actionWithdraw" aria-label="提现" title="提现">提现</button>
+                      <button class="action-link" data-i18n="actionTransfer" aria-label="转账" title="转账">转账</button>
+                      <button class="action-link" data-i18n="actionExchange" data-asset="USDC" data-network="Arbitrum" aria-label="兑换" title="兑换">兑换</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-type="digital">
+                  <td>
+                    <div class="asset-cell">
+                      <span class="asset-icon crypto">
+                        <img src="images/USDC.png" alt="USDC" />
+                        <span class="chain-badge">
+                          <img src="images/solana.png" alt="Solana" />
+                        </span>
+                      </span>
+                      <span class="asset-name">USDC</span>
+                    </div>
+                  </td>
+                  <td><span class="type-badge digital" data-i18n="typeDigital">数字货币</span></td>
+                  <td>0.000000</td>
+                  <td>7.77</td>
+                  <td>0.00</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-link" data-i18n="actionDeposit" aria-label="充值" title="充值">充值</button>
+                      <button class="action-link" data-i18n="actionWithdraw" aria-label="提现" title="提现">提现</button>
+                      <button class="action-link" data-i18n="actionTransfer" aria-label="转账" title="转账">转账</button>
+                      <button class="action-link" data-i18n="actionExchange" data-asset="USDC" data-network="Solana" aria-label="兑换" title="兑换">兑换</button>
                     </div>
                   </td>
                 </tr>
@@ -307,6 +406,413 @@
         </section>
       </main>
     </div>
+
+    <!-- Deposit Modal -->
+    <div class="deposit-modal" id="deposit-modal">
+      <div class="deposit-modal-content">
+        <div class="deposit-header">
+          <h2 class="deposit-title" data-i18n="depositTitle">管理资金 / 充值</h2>
+          <button class="deposit-close" id="deposit-close" aria-label="关闭充值弹窗" title="关闭">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="deposit-body">
+          <div class="deposit-sidebar">
+            <!-- Currency Type Tabs -->
+            <div class="currency-type-tabs">
+              <button class="type-tab active" data-type="fiat" data-i18n="depositTypeFiat" aria-label="法定货币" title="法定货币">法定货币</button>
+              <button class="type-tab" data-type="crypto" data-i18n="depositTypeCrypto" aria-label="数字货币" title="数字货币">数字货币</button>
+            </div>
+
+            <!-- Fiat Currency List -->
+            <div class="currency-list" id="fiat-currency-list">
+              <div class="currency-item active" data-currency="USD" role="button" tabindex="0" aria-label="选择USD" title="选择USD">
+                <span class="currency-icon" aria-hidden="true">
+                  <img src="images/USD.png" alt="USD" />
+                </span>
+                <span class="currency-name">USD</span>
+              </div>
+              <div class="currency-item" data-currency="HKD" role="button" tabindex="0" aria-label="选择HKD" title="选择HKD">
+                <span class="currency-icon" aria-hidden="true">
+                  <img src="images/HKD.png" alt="HKD" />
+                </span>
+                <span class="currency-name">HKD</span>
+              </div>
+              <div class="currency-item" data-currency="EUR" role="button" tabindex="0" aria-label="选择EUR" title="选择EUR">
+                <span class="currency-icon" aria-hidden="true">
+                  <img src="images/EURO.png" alt="EUR" />
+                </span>
+                <span class="currency-name">EUR</span>
+              </div>
+            </div>
+
+            <!-- Crypto Currency List -->
+            <div class="currency-list hidden" id="crypto-currency-list">
+              <div class="currency-item active" data-currency="USDT" role="button" tabindex="0" aria-label="选择USDT" title="选择USDT">
+                <span class="currency-icon" aria-hidden="true">
+                  <img src="images/USDT.png" alt="USDT" />
+                </span>
+                <span class="currency-name">USDT</span>
+              </div>
+              <div class="currency-item" data-currency="USDC" role="button" tabindex="0" aria-label="选择USDC" title="选择USDC">
+                <span class="currency-icon" aria-hidden="true">
+                  <img src="images/USDC.png" alt="USDC" />
+                </span>
+                <span class="currency-name">USDC</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="deposit-content">
+            <!-- Fiat Deposit Form -->
+            <div class="deposit-form-container" id="fiat-deposit-form">
+              <div class="form-section">
+                <h3 class="form-section-title" data-i18n="fiatDepositTitle">银行转账充值</h3>
+                <form class="deposit-form" id="fiat-form">
+                  <div class="form-group">
+                    <label for="deposit-amount" data-i18n="depositAmount">充值金额</label>
+                    <input type="number" id="deposit-amount" name="amount" data-i18n-placeholder="depositAmountPlaceholder" placeholder="请输入充值金额" step="0.01" min="0" required aria-label="充值金额" />
+                  </div>
+                  <div class="form-group">
+                    <label for="sender-name" data-i18n="senderName">汇款人姓名</label>
+                    <input type="text" id="sender-name" name="senderName" data-i18n-placeholder="senderNamePlaceholder" placeholder="请输入汇款人姓名" required aria-label="汇款人姓名" />
+                  </div>
+                  <div class="form-group">
+                    <label for="sender-bank" data-i18n="senderBank">汇款银行 / 账户后四位（可选）</label>
+                    <input type="text" id="sender-bank" name="senderBank" data-i18n-placeholder="senderBankPlaceholder" placeholder="请输入汇款银行名称" aria-label="汇款银行名称（可选）" />
+                  </div>
+                  <div class="form-group">
+                    <label for="reference-no" data-i18n="referenceNo">备注 / Reference No.</label>
+                    <input type="text" id="reference-no" name="reference" data-i18n-placeholder="referencePlaceholder" placeholder="请输入备注信息" aria-label="备注信息" />
+                  </div>
+                </form>
+              </div>
+
+              <div class="form-section">
+                <h3 class="form-section-title" data-i18n="bankInfoTitle">平台收款信息</h3>
+                <div class="info-display" id="fiat-bank-info">
+                  <!-- Bank info will be populated by JS -->
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn-primary" id="submit-fiat-deposit" data-i18n="submitDeposit" aria-label="提交充值信息" title="提交充值信息">提交充值信息</button>
+                <button class="btn-secondary" id="confirm-transfer" data-i18n="confirmTransfer" aria-label="我已完成转账" title="我已完成转账">我已完成转账</button>
+              </div>
+            </div>
+
+            <!-- Crypto Deposit Form -->
+            <div class="deposit-form-container hidden" id="crypto-deposit-form">
+              <div class="form-section">
+                <h3 class="form-section-title" data-i18n="cryptoSelectNetwork">选择网络</h3>
+                <div class="network-selector" id="network-selector">
+                  <!-- Networks will be populated by JS -->
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h3 class="form-section-title" data-i18n="cryptoDepositAddress">充值地址</h3>
+                <div class="address-display">
+                  <div class="address-input-group">
+                    <input type="text" id="crypto-address" readonly class="address-input" aria-label="数字货币充值地址" title="数字货币充值地址" placeholder="充值地址将在此显示" />
+                    <button class="btn-copy" id="copy-address" data-i18n="copyAddress" aria-label="复制充值地址" title="复制充值地址">复制地址</button>
+                  </div>
+                  <div class="qr-code-container" id="qr-code-container">
+                    <!-- QR code will be generated here -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <div class="security-notice">
+                  <h4 class="notice-title" data-i18n="securityNotice">重要提示</h4>
+                  <p class="notice-text" data-i18n="securityNoticeText">仅向该地址充值所选币种，错误充值将无法找回。请确认网络类型和充值地址完全匹配。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div class="deposit-modal" id="withdraw-modal">
+      <div class="deposit-modal-content">
+        <div class="deposit-header">
+          <h2 class="deposit-title" data-i18n="withdrawTitle">管理资金 / 提现</h2>
+          <button class="deposit-close" id="withdraw-close" aria-label="关闭提现弹窗" title="关闭">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="deposit-body">
+          <div class="deposit-sidebar">
+            <!-- Currency Type Tabs -->
+            <div class="currency-type-tabs">
+              <button class="type-tab active" data-type="fiat" data-i18n="withdrawTypeFiat" aria-label="法定货币" title="法定货币">法定货币</button>
+              <button class="type-tab" data-type="crypto" data-i18n="withdrawTypeCrypto" aria-label="数字货币" title="数字货币">数字货币</button>
+            </div>
+
+            <!-- Fiat Currency List -->
+            <div class="currency-list" id="withdraw-fiat-currency-list">
+              <div class="currency-item active" data-currency="USD" role="button" tabindex="0" aria-label="选择USD" title="选择USD">
+                <span class="currency-icon" aria-hidden="true">
+                  <img src="images/USD.png" alt="USD" />
+                </span>
+                <span class="currency-name">USD</span>
+              </div>
+              <div class="currency-item" data-currency="HKD" role="button" tabindex="0" aria-label="选择HKD" title="选择HKD">
+                <span class="currency-icon" aria-hidden="true">
+                  <img src="images/HKD.png" alt="HKD" />
+                </span>
+                <span class="currency-name">HKD</span>
+              </div>
+              <div class="currency-item" data-currency="EUR" role="button" tabindex="0" aria-label="选择EUR" title="选择EUR">
+                <span class="currency-icon" aria-hidden="true">
+                  <img src="images/EURO.png" alt="EUR" />
+                </span>
+                <span class="currency-name">EUR</span>
+              </div>
+            </div>
+
+            <!-- Crypto Currency List -->
+            <div class="currency-list hidden" id="withdraw-crypto-currency-list">
+              <div class="currency-item active" data-currency="USDT" role="button" tabindex="0" aria-label="选择USDT" title="选择USDT">
+                <span class="currency-icon" aria-hidden="true">
+                  <img src="images/USDT.png" alt="USDT" />
+                </span>
+                <span class="currency-name">USDT</span>
+              </div>
+              <div class="currency-item" data-currency="USDC" role="button" tabindex="0" aria-label="选择USDC" title="选择USDC">
+                <span class="currency-icon" aria-hidden="true">
+                  <img src="images/USDC.png" alt="USDC" />
+                </span>
+                <span class="currency-name">USDC</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="deposit-content">
+            <!-- Fiat Withdraw Form -->
+            <div class="deposit-form-container" id="fiat-withdraw-form">
+              <div class="form-section">
+                <h3 class="form-section-title" data-i18n="fiatWithdrawTitle">银行转账提现</h3>
+                <form class="deposit-form" id="fiat-withdraw-form-element">
+                  <div class="form-group">
+                    <label for="withdraw-amount" data-i18n="withdrawAmount">提现金额</label>
+                    <input type="number" id="withdraw-amount" name="amount" data-i18n-placeholder="withdrawAmountPlaceholder" placeholder="请输入提现金额" step="0.01" min="0" required aria-label="提现金额" />
+                  </div>
+                  <div class="form-group">
+                    <label for="account-holder" data-i18n="accountHolder">收款人姓名</label>
+                    <input type="text" id="account-holder" name="accountHolder" data-i18n-placeholder="accountHolderPlaceholder" placeholder="请输入收款人姓名" required aria-label="收款人姓名" />
+                  </div>
+                  <div class="form-group">
+                    <label for="bank-name" data-i18n="bankName">收款银行名称</label>
+                    <input type="text" id="bank-name" name="bankName" data-i18n-placeholder="bankNamePlaceholder" placeholder="请输入收款银行名称" required aria-label="收款银行名称" />
+                  </div>
+                  <div class="form-group">
+                    <label for="account-number" data-i18n="accountNumber">收款账号 / IBAN</label>
+                    <input type="text" id="account-number" name="accountNumber" data-i18n-placeholder="accountNumberPlaceholder" placeholder="请输入收款账号或IBAN" required aria-label="收款账号或IBAN" />
+                  </div>
+                  <div class="form-group">
+                    <label for="bank-branch" data-i18n="bankBranch">开户行分行信息 / 支行（可选）</label>
+                    <input type="text" id="bank-branch" name="bankBranch" data-i18n-placeholder="bankBranchPlaceholder" placeholder="请输入开户行分行信息" aria-label="开户行分行信息（可选）" />
+                  </div>
+                  <div class="form-group">
+                    <label for="withdraw-reference" data-i18n="withdrawReference">备注 / Reference（可选）</label>
+                    <input type="text" id="withdraw-reference" name="reference" data-i18n-placeholder="withdrawReferencePlaceholder" placeholder="请输入备注信息" aria-label="备注信息（可选）" />
+                  </div>
+                </form>
+              </div>
+
+              <div class="form-section">
+                <h3 class="form-section-title" data-i18n="withdrawInfoTitle">提现信息</h3>
+                <div class="info-display" id="fiat-withdraw-info">
+                  <!-- Withdraw info will be populated by JS -->
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn-primary" id="submit-fiat-withdraw" data-i18n="submitWithdraw" aria-label="提交提现申请" title="提交提现申请">提交提现申请</button>
+              </div>
+            </div>
+
+            <!-- Crypto Withdraw Form -->
+            <div class="deposit-form-container hidden" id="crypto-withdraw-form">
+              <div class="form-section">
+                <h3 class="form-section-title" data-i18n="cryptoSelectNetwork">选择网络</h3>
+                <div class="network-selector" id="withdraw-network-selector">
+                  <!-- Networks will be populated by JS -->
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h3 class="form-section-title" data-i18n="cryptoWithdrawFormTitle">提现信息</h3>
+                <form class="deposit-form" id="crypto-withdraw-form-element">
+                  <div class="form-group">
+                    <label for="crypto-withdraw-address" data-i18n="withdrawAddress">提现地址</label>
+                    <input type="text" id="crypto-withdraw-address" name="address" data-i18n-placeholder="withdrawAddressPlaceholder" placeholder="请输入提现地址" required aria-label="提现地址" />
+                  </div>
+                  <div class="form-group">
+                    <label for="crypto-withdraw-amount" data-i18n="withdrawAmount">提现金额</label>
+                    <input type="number" id="crypto-withdraw-amount" name="amount" data-i18n-placeholder="withdrawAmountPlaceholder" placeholder="请输入提现金额" step="0.00000001" min="0" required aria-label="提现金额" />
+                  </div>
+                </form>
+              </div>
+
+              <div class="form-section">
+                <h3 class="form-section-title" data-i18n="withdrawInfoTitle">提现信息</h3>
+                <div class="info-display" id="crypto-withdraw-info">
+                  <!-- Withdraw info will be populated by JS -->
+                </div>
+              </div>
+
+              <div class="form-section">
+                <div class="security-notice">
+                  <h4 class="notice-title" data-i18n="withdrawSecurityNotice">重要提示</h4>
+                  <p class="notice-text" data-i18n="withdrawSecurityNoticeText">仅向支持对应网络的钱包/交易所地址提现，错误网络将导致资产丢失。请确认网络类型和提现地址完全匹配。</p>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn-primary" id="submit-crypto-withdraw" data-i18n="submitWithdraw" aria-label="提交提现申请" title="提交提现申请">提交提现申请</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exchange Modal -->
+    <div class="deposit-modal" id="exchange-modal">
+      <div class="deposit-modal-content">
+        <div class="deposit-header">
+          <h2 class="deposit-title" data-i18n="exchangeTitle">兑换</h2>
+          <button class="deposit-close" id="exchange-close" aria-label="关闭兑换弹窗" title="关闭">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="deposit-body">
+          <div class="exchange-card">
+              <!-- From Asset Section -->
+              <div class="exchange-section">
+                <div class="exchange-section-header">
+                  <span class="exchange-label" data-i18n="exchangeFrom">从</span>
+                  <span class="exchange-balance" id="from-balance-display">
+                    <span data-i18n="exchangeBalance">余额:</span> <span id="from-balance-value">0.00</span>
+                  </span>
+                </div>
+                <div class="exchange-input-group">
+                  <input 
+                    type="number" 
+                    id="from-amount" 
+                    class="exchange-amount-input" 
+                    placeholder="0.00" 
+                    step="0.01" 
+                    min="0"
+                    data-i18n-placeholder="exchangeAmountPlaceholder"
+                    aria-label="输入金额"
+                  />
+                  <div class="exchange-asset-selector">
+                    <button class="exchange-asset-btn" id="from-asset-btn" aria-label="选择源资产" title="选择源资产">
+                      <span class="exchange-asset-icon" id="from-asset-icon">
+                        <img src="images/USD.png" alt="USD" />
+                      </span>
+                      <span class="exchange-asset-name" id="from-asset-name">USD</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 4px; flex-shrink: 0;">
+                        <path d="M6 9l6 6 6-6"/>
+                      </svg>
+                    </button>
+                    <div class="exchange-asset-dropdown" id="from-asset-dropdown">
+                      <!-- Will be populated by JS -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Swap Direction Button -->
+              <div class="exchange-swap-container">
+                <button class="exchange-swap-btn" id="exchange-swap-btn" aria-label="切换兑换方向" title="切换兑换方向">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- To Asset Section -->
+              <div class="exchange-section">
+                <div class="exchange-section-header">
+                  <span class="exchange-label" data-i18n="exchangeTo">到</span>
+                  <span class="exchange-balance" id="to-balance-display">
+                    <span data-i18n="exchangeBalance">余额:</span> <span id="to-balance-value">0.00</span>
+                  </span>
+                </div>
+                <div class="exchange-input-group">
+                  <input 
+                    type="number" 
+                    id="to-amount" 
+                    class="exchange-amount-input" 
+                    placeholder="0.00" 
+                    step="0.01" 
+                    min="0"
+                    readonly
+                    data-i18n-placeholder="exchangeAmountPlaceholder"
+                    aria-label="目标金额"
+                  />
+                  <div class="exchange-asset-selector">
+                    <button class="exchange-asset-btn" id="to-asset-btn" aria-label="选择目标资产" title="选择目标资产">
+                      <span class="exchange-asset-icon" id="to-asset-icon">
+                        <img src="images/USDT.png" alt="USDT" />
+                      </span>
+                      <span class="exchange-asset-name" id="to-asset-name">USDT</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 4px; flex-shrink: 0;">
+                        <path d="M6 9l6 6 6-6"/>
+                      </svg>
+                    </button>
+                    <div class="exchange-asset-dropdown" id="to-asset-dropdown">
+                      <!-- Will be populated by JS -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Exchange Info -->
+              <div class="exchange-info">
+                <div class="exchange-info-row">
+                  <span class="exchange-info-label" data-i18n="exchangeRate">汇率</span>
+                  <span class="exchange-info-value" id="exchange-rate-display">1 USD = 0.98 USDT</span>
+                </div>
+                <div class="exchange-info-row">
+                  <span class="exchange-info-label" data-i18n="exchangeFee">手续费</span>
+                  <span class="exchange-info-value" id="exchange-fee-display">0.00</span>
+                </div>
+                <div class="exchange-info-row">
+                  <span class="exchange-info-label" data-i18n="exchangeReceived">预计到账</span>
+                  <span class="exchange-info-value" id="exchange-received-display">0.00</span>
+                </div>
+              </div>
+
+              <!-- Exchange Button -->
+              <button class="btn-primary exchange-confirm-btn" id="exchange-confirm-btn" data-i18n="confirmExchange" aria-label="确认兑换" title="确认兑换">
+                确认兑换
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" 
+            crossorigin="anonymous"
+            onerror="console.warn('QRCode library failed to load, QR code generation may not work.')"></script>
 
     <script>
       (function () {
@@ -321,7 +827,6 @@
             pageTitle: "钱包",
             userMenu: "用户",
             totalAssets: "总资产",
-            currency: "USDT",
             actionDeposit: "充值",
             actionWithdraw: "提现",
             actionTransfer: "转账",
@@ -337,12 +842,79 @@
             colAsset: "资产",
             colType: "类型",
             colAmount: "数量",
-            colPrice: "价格 (USDT)",
-            colValue: "价值 (USDT)",
+            colPrice: "价格",
+            colValue: "价值",
             colAction: "操作",
             typeFiat: "法币",
             typeDigital: "数字货币",
             actionFX: "FX",
+            // Deposit modal translations
+            depositTitle: "管理资金 / 充值",
+            depositTypeFiat: "法定货币",
+            depositTypeCrypto: "数字货币",
+            fiatDepositTitle: "银行转账充值",
+            depositAmount: "充值金额",
+            depositAmountPlaceholder: "请输入充值金额",
+            senderName: "汇款人姓名",
+            senderNamePlaceholder: "请输入汇款人姓名",
+            senderBank: "汇款银行 / 账户后四位（可选）",
+            senderBankPlaceholder: "请输入汇款银行名称",
+            referenceNo: "备注 / Reference No.",
+            referencePlaceholder: "请输入备注信息",
+            bankInfoTitle: "平台收款信息",
+            bankName: "收款银行名称",
+            accountNo: "收款账号",
+            accountName: "收款户名",
+            submitDeposit: "提交充值信息",
+            confirmTransfer: "我已完成转账",
+            cryptoSelectNetwork: "选择网络",
+            cryptoDepositAddress: "充值地址",
+            copyAddress: "复制地址",
+            securityNotice: "重要提示",
+            securityNoticeText: "仅向该地址充值所选币种，错误充值将无法找回。请确认网络类型和充值地址完全匹配。",
+            // Withdraw translations
+            withdrawTitle: "管理资金 / 提现",
+            withdrawTypeFiat: "法定货币",
+            withdrawTypeCrypto: "数字货币",
+            fiatWithdrawTitle: "银行转账提现",
+            withdrawAmount: "提现金额",
+            withdrawAmountPlaceholder: "请输入提现金额",
+            accountHolder: "收款人姓名",
+            accountHolderPlaceholder: "请输入收款人姓名",
+            bankName: "收款银行名称",
+            bankNamePlaceholder: "请输入收款银行名称",
+            accountNumber: "收款账号 / IBAN",
+            accountNumberPlaceholder: "请输入收款账号或IBAN",
+            bankBranch: "开户行分行信息 / 支行（可选）",
+            bankBranchPlaceholder: "请输入开户行分行信息",
+            withdrawReference: "备注 / Reference（可选）",
+            withdrawReferencePlaceholder: "请输入备注信息",
+            withdrawInfoTitle: "提现信息",
+            submitWithdraw: "提交提现申请",
+            cryptoWithdrawFormTitle: "提现信息",
+            withdrawAddress: "提现地址",
+            withdrawAddressPlaceholder: "请输入提现地址",
+            withdrawSecurityNotice: "重要提示",
+            withdrawSecurityNoticeText: "仅向支持对应网络的钱包/交易所地址提现，错误网络将导致资产丢失。请确认网络类型和提现地址完全匹配。",
+            availableBalance: "可用余额",
+            minAmount: "最低提现金额",
+            maxAmount: "单笔限额",
+            dailyLimit: "单日限额",
+            feeRate: "手续费率",
+            fee: "手续费",
+            receivedAmount: "预计到账金额",
+            arrivalTime: "预计到账时间",
+            // Exchange translations
+            actionExchange: "兑换",
+            exchangeTitle: "兑换",
+            exchangeFrom: "从",
+            exchangeTo: "到",
+            exchangeBalance: "余额:",
+            exchangeAmountPlaceholder: "0.00",
+            exchangeRate: "汇率",
+            exchangeFee: "手续费",
+            exchangeReceived: "预计到账",
+            confirmExchange: "确认兑换",
           },
           en: {
             navOverview: "Overview",
@@ -354,7 +926,6 @@
             pageTitle: "Wallet",
             userMenu: "User",
             totalAssets: "Total Assets",
-            currency: "USDT",
             actionDeposit: "Deposit",
             actionWithdraw: "Withdraw",
             actionTransfer: "Transfer",
@@ -370,12 +941,79 @@
             colAsset: "Assets",
             colType: "Type",
             colAmount: "Amount",
-            colPrice: "Price (USDT)",
-            colValue: "Value (USDT)",
+            colPrice: "Price",
+            colValue: "Value",
             colAction: "Action",
             typeFiat: "Fiat",
             typeDigital: "Digital",
             actionFX: "FX",
+            // Deposit modal translations
+            depositTitle: "Manage Funds / Deposit",
+            depositTypeFiat: "Fiat Currency",
+            depositTypeCrypto: "Digital Currency",
+            fiatDepositTitle: "Bank Transfer Deposit",
+            depositAmount: "Deposit Amount",
+            depositAmountPlaceholder: "Enter deposit amount",
+            senderName: "Sender Name",
+            senderNamePlaceholder: "Enter sender name",
+            senderBank: "Sender Bank / Last 4 Digits (Optional)",
+            senderBankPlaceholder: "Enter sender bank name",
+            referenceNo: "Reference No.",
+            referencePlaceholder: "Enter reference information",
+            bankInfoTitle: "Platform Receiving Information",
+            bankName: "Bank Name",
+            accountNo: "Account Number",
+            accountName: "Account Name",
+            submitDeposit: "Submit Deposit Information",
+            confirmTransfer: "I Have Completed Transfer",
+            cryptoSelectNetwork: "Select Network",
+            cryptoDepositAddress: "Deposit Address",
+            copyAddress: "Copy Address",
+            securityNotice: "Important Notice",
+            securityNoticeText: "Only deposit the selected currency to this address. Incorrect deposits cannot be recovered. Please confirm that the network type and deposit address match exactly.",
+            // Withdraw translations
+            withdrawTitle: "Manage Funds / Withdraw",
+            withdrawTypeFiat: "Fiat Currency",
+            withdrawTypeCrypto: "Digital Currency",
+            fiatWithdrawTitle: "Bank Transfer Withdraw",
+            withdrawAmount: "Withdraw Amount",
+            withdrawAmountPlaceholder: "Enter withdraw amount",
+            accountHolder: "Account Holder",
+            accountHolderPlaceholder: "Enter account holder name",
+            bankName: "Bank Name",
+            bankNamePlaceholder: "Enter bank name",
+            accountNumber: "Account Number / IBAN",
+            accountNumberPlaceholder: "Enter account number or IBAN",
+            bankBranch: "Bank Branch (Optional)",
+            bankBranchPlaceholder: "Enter bank branch information",
+            withdrawReference: "Reference (Optional)",
+            withdrawReferencePlaceholder: "Enter reference information",
+            withdrawInfoTitle: "Withdraw Information",
+            submitWithdraw: "Submit Withdraw Request",
+            cryptoWithdrawFormTitle: "Withdraw Information",
+            withdrawAddress: "Withdraw Address",
+            withdrawAddressPlaceholder: "Enter withdraw address",
+            withdrawSecurityNotice: "Important Notice",
+            withdrawSecurityNoticeText: "Only withdraw to wallet/exchange addresses that support the corresponding network. Incorrect networks will result in asset loss. Please confirm that the network type and withdraw address match exactly.",
+            availableBalance: "Available Balance",
+            minAmount: "Minimum Amount",
+            maxAmount: "Single Transaction Limit",
+            dailyLimit: "Daily Limit",
+            feeRate: "Fee Rate",
+            fee: "Fee",
+            receivedAmount: "Estimated Received Amount",
+            arrivalTime: "Estimated Arrival Time",
+            // Exchange translations
+            actionExchange: "Convert",
+            exchangeTitle: "Convert",
+            exchangeFrom: "From",
+            exchangeTo: "To",
+            exchangeBalance: "Balance:",
+            exchangeAmountPlaceholder: "0.00",
+            exchangeRate: "Conversion Rate",
+            exchangeFee: "Fee",
+            exchangeReceived: "Estimated Received",
+            confirmExchange: "Confirm Conversion",
           },
           ja: {
             navOverview: "概要",
@@ -387,7 +1025,6 @@
             pageTitle: "ウォレット",
             userMenu: "ユーザー",
             totalAssets: "総資産",
-            currency: "USDT",
             actionDeposit: "入金",
             actionWithdraw: "出金",
             actionTransfer: "送金",
@@ -403,12 +1040,79 @@
             colAsset: "資産",
             colType: "種類",
             colAmount: "数量",
-            colPrice: "価格 (USDT)",
-            colValue: "価値 (USDT)",
+            colPrice: "価格",
+            colValue: "価値",
             colAction: "操作",
             typeFiat: "法定通貨",
             typeDigital: "デジタル",
             actionFX: "FX",
+            // Deposit modal translations
+            depositTitle: "資金管理 / 入金",
+            depositTypeFiat: "法定通貨",
+            depositTypeCrypto: "デジタル通貨",
+            fiatDepositTitle: "銀行振込入金",
+            depositAmount: "入金額",
+            depositAmountPlaceholder: "入金額を入力してください",
+            senderName: "送金人名",
+            senderNamePlaceholder: "送金人名を入力してください",
+            senderBank: "送金銀行 / 口座下4桁（任意）",
+            senderBankPlaceholder: "送金銀行名を入力してください",
+            referenceNo: "備考 / 参照番号",
+            referencePlaceholder: "備考情報を入力してください",
+            bankInfoTitle: "プラットフォーム受取情報",
+            bankName: "銀行名",
+            accountNo: "口座番号",
+            accountName: "口座名義",
+            submitDeposit: "入金情報を送信",
+            confirmTransfer: "振込完了しました",
+            cryptoSelectNetwork: "ネットワーク選択",
+            cryptoDepositAddress: "入金アドレス",
+            copyAddress: "アドレスをコピー",
+            securityNotice: "重要な注意事項",
+            securityNoticeText: "選択した通貨のみをこのアドレスに入金してください。誤った入金は回復できません。ネットワークタイプと入金アドレスが完全に一致することを確認してください。",
+            // Withdraw translations
+            withdrawTitle: "資金管理 / 出金",
+            withdrawTypeFiat: "法定通貨",
+            withdrawTypeCrypto: "デジタル通貨",
+            fiatWithdrawTitle: "銀行振込出金",
+            withdrawAmount: "出金額",
+            withdrawAmountPlaceholder: "出金額を入力してください",
+            accountHolder: "口座名義",
+            accountHolderPlaceholder: "口座名義を入力してください",
+            bankName: "銀行名",
+            bankNamePlaceholder: "銀行名を入力してください",
+            accountNumber: "口座番号 / IBAN",
+            accountNumberPlaceholder: "口座番号またはIBANを入力してください",
+            bankBranch: "支店情報（任意）",
+            bankBranchPlaceholder: "支店情報を入力してください",
+            withdrawReference: "備考（任意）",
+            withdrawReferencePlaceholder: "備考情報を入力してください",
+            withdrawInfoTitle: "出金情報",
+            submitWithdraw: "出金申請を送信",
+            cryptoWithdrawFormTitle: "出金情報",
+            withdrawAddress: "出金アドレス",
+            withdrawAddressPlaceholder: "出金アドレスを入力してください",
+            withdrawSecurityNotice: "重要な注意事項",
+            withdrawSecurityNoticeText: "対応するネットワークをサポートするウォレット/取引所アドレスにのみ出金してください。誤ったネットワークは資産の損失につながります。ネットワークタイプと出金アドレスが完全に一致することを確認してください。",
+            availableBalance: "利用可能残高",
+            minAmount: "最低出金額",
+            maxAmount: "1回の取引制限",
+            dailyLimit: "1日の制限",
+            feeRate: "手数料率",
+            fee: "手数料",
+            receivedAmount: "予想受取額",
+            arrivalTime: "予想到着時間",
+            // Exchange translations
+            actionExchange: "両替",
+            exchangeTitle: "両替",
+            exchangeFrom: "から",
+            exchangeTo: "へ",
+            exchangeBalance: "残高:",
+            exchangeAmountPlaceholder: "0.00",
+            exchangeRate: "為替レート",
+            exchangeFee: "手数料",
+            exchangeReceived: "予想到着",
+            confirmExchange: "両替を確認",
           },
           de: {
             navOverview: "Übersicht",
@@ -420,7 +1124,6 @@
             pageTitle: "Wallet",
             userMenu: "Benutzer",
             totalAssets: "Gesamtvermögen",
-            currency: "USDT",
             actionDeposit: "Einzahlen",
             actionWithdraw: "Abheben",
             actionTransfer: "Überweisen",
@@ -436,12 +1139,79 @@
             colAsset: "Vermögenswert",
             colType: "Typ",
             colAmount: "Betrag",
-            colPrice: "Preis (USDT)",
-            colValue: "Wert (USDT)",
+            colPrice: "Preis",
+            colValue: "Wert",
             colAction: "Aktion",
             typeFiat: "Fiat",
             typeDigital: "Digital",
             actionFX: "FX",
+            // Deposit modal translations
+            depositTitle: "Geld verwalten / Einzahlung",
+            depositTypeFiat: "Fiat-Währung",
+            depositTypeCrypto: "Digitale Währung",
+            fiatDepositTitle: "Banküberweisung",
+            depositAmount: "Einzahlungsbetrag",
+            depositAmountPlaceholder: "Einzahlungsbetrag eingeben",
+            senderName: "Absendername",
+            senderNamePlaceholder: "Absendername eingeben",
+            senderBank: "Absenderbank / Letzte 4 Ziffern (Optional)",
+            senderBankPlaceholder: "Absenderbankname eingeben",
+            referenceNo: "Referenznummer",
+            referencePlaceholder: "Referenzinformationen eingeben",
+            bankInfoTitle: "Empfängerinformationen",
+            bankName: "Bankname",
+            accountNo: "Kontonummer",
+            accountName: "Kontoinhaber",
+            submitDeposit: "Einzahlungsinformationen übermitteln",
+            confirmTransfer: "Überweisung abgeschlossen",
+            cryptoSelectNetwork: "Netzwerk auswählen",
+            cryptoDepositAddress: "Einzahlungsadresse",
+            copyAddress: "Adresse kopieren",
+            securityNotice: "Wichtiger Hinweis",
+            securityNoticeText: "Nur die ausgewählte Währung an diese Adresse einzahlen. Falsche Einzahlungen können nicht zurückerstattet werden. Bitte bestätigen Sie, dass der Netzwerktyp und die Einzahlungsadresse genau übereinstimmen.",
+            // Withdraw translations
+            withdrawTitle: "Geld verwalten / Abheben",
+            withdrawTypeFiat: "Fiat-Währung",
+            withdrawTypeCrypto: "Digitale Währung",
+            fiatWithdrawTitle: "Banküberweisung Abheben",
+            withdrawAmount: "Abhebungsbetrag",
+            withdrawAmountPlaceholder: "Abhebungsbetrag eingeben",
+            accountHolder: "Kontoinhaber",
+            accountHolderPlaceholder: "Kontoinhaber eingeben",
+            bankName: "Bankname",
+            bankNamePlaceholder: "Bankname eingeben",
+            accountNumber: "Kontonummer / IBAN",
+            accountNumberPlaceholder: "Kontonummer oder IBAN eingeben",
+            bankBranch: "Bankfiliale (Optional)",
+            bankBranchPlaceholder: "Bankfilialinformationen eingeben",
+            withdrawReference: "Referenz (Optional)",
+            withdrawReferencePlaceholder: "Referenzinformationen eingeben",
+            withdrawInfoTitle: "Abhebungsinformationen",
+            submitWithdraw: "Abhebungsantrag übermitteln",
+            cryptoWithdrawFormTitle: "Abhebungsinformationen",
+            withdrawAddress: "Abhebungsadresse",
+            withdrawAddressPlaceholder: "Abhebungsadresse eingeben",
+            withdrawSecurityNotice: "Wichtiger Hinweis",
+            withdrawSecurityNoticeText: "Nur an Wallet/Börsen-Adressen abheben, die das entsprechende Netzwerk unterstützen. Falsche Netzwerke führen zu Vermögensverlust. Bitte bestätigen Sie, dass der Netzwerktyp und die Abhebungsadresse genau übereinstimmen.",
+            availableBalance: "Verfügbares Guthaben",
+            minAmount: "Mindestbetrag",
+            maxAmount: "Einzeltransaktionslimit",
+            dailyLimit: "Tageslimit",
+            feeRate: "Gebührensatz",
+            fee: "Gebühr",
+            receivedAmount: "Geschätzter Empfangsbetrag",
+            arrivalTime: "Geschätzte Ankunftszeit",
+            // Exchange translations
+            actionExchange: "Tauschen",
+            exchangeTitle: "Tauschen",
+            exchangeFrom: "Von",
+            exchangeTo: "Zu",
+            exchangeBalance: "Guthaben:",
+            exchangeAmountPlaceholder: "0.00",
+            exchangeRate: "Wechselkurs",
+            exchangeFee: "Gebühr",
+            exchangeReceived: "Geschätzter Empfang",
+            confirmExchange: "Tausch bestätigen",
           },
           vi: {
             navOverview: "Tổng quan",
@@ -453,7 +1223,6 @@
             pageTitle: "Ví",
             userMenu: "Người dùng",
             totalAssets: "Tổng tài sản",
-            currency: "USDT",
             actionDeposit: "Nạp tiền",
             actionWithdraw: "Rút tiền",
             actionTransfer: "Chuyển khoản",
@@ -469,33 +1238,171 @@
             colAsset: "Tài sản",
             colType: "Loại",
             colAmount: "Số lượng",
-            colPrice: "Giá (USDT)",
-            colValue: "Giá trị (USDT)",
+            colPrice: "Giá",
+            colValue: "Giá trị",
             colAction: "Thao tác",
             typeFiat: "Pháp định",
             typeDigital: "Kỹ thuật số",
             actionFX: "FX",
+            // Deposit modal translations
+            depositTitle: "Quản lý tiền / Nạp tiền",
+            depositTypeFiat: "Tiền pháp định",
+            depositTypeCrypto: "Tiền kỹ thuật số",
+            fiatDepositTitle: "Nạp tiền qua chuyển khoản ngân hàng",
+            depositAmount: "Số tiền nạp",
+            depositAmountPlaceholder: "Nhập số tiền nạp",
+            senderName: "Tên người gửi",
+            senderNamePlaceholder: "Nhập tên người gửi",
+            senderBank: "Ngân hàng gửi / 4 số cuối (Tùy chọn)",
+            senderBankPlaceholder: "Nhập tên ngân hàng gửi",
+            referenceNo: "Ghi chú / Số tham chiếu",
+            referencePlaceholder: "Nhập thông tin ghi chú",
+            bankInfoTitle: "Thông tin tài khoản nhận",
+            bankName: "Tên ngân hàng",
+            accountNo: "Số tài khoản",
+            accountName: "Tên chủ tài khoản",
+            submitDeposit: "Gửi thông tin nạp tiền",
+            confirmTransfer: "Tôi đã hoàn thành chuyển khoản",
+            cryptoSelectNetwork: "Chọn mạng",
+            cryptoDepositAddress: "Địa chỉ nạp tiền",
+            copyAddress: "Sao chép địa chỉ",
+            securityNotice: "Thông báo quan trọng",
+            securityNoticeText: "Chỉ nạp loại tiền đã chọn vào địa chỉ này. Nạp sai không thể khôi phục. Vui lòng xác nhận loại mạng và địa chỉ nạp tiền khớp chính xác.",
+            // Withdraw translations
+            withdrawTitle: "Quản lý tiền / Rút tiền",
+            withdrawTypeFiat: "Tiền pháp định",
+            withdrawTypeCrypto: "Tiền kỹ thuật số",
+            fiatWithdrawTitle: "Rút tiền qua chuyển khoản ngân hàng",
+            withdrawAmount: "Số tiền rút",
+            withdrawAmountPlaceholder: "Nhập số tiền rút",
+            accountHolder: "Tên chủ tài khoản",
+            accountHolderPlaceholder: "Nhập tên chủ tài khoản",
+            bankName: "Tên ngân hàng",
+            bankNamePlaceholder: "Nhập tên ngân hàng",
+            accountNumber: "Số tài khoản / IBAN",
+            accountNumberPlaceholder: "Nhập số tài khoản hoặc IBAN",
+            bankBranch: "Thông tin chi nhánh (Tùy chọn)",
+            bankBranchPlaceholder: "Nhập thông tin chi nhánh",
+            withdrawReference: "Ghi chú (Tùy chọn)",
+            withdrawReferencePlaceholder: "Nhập thông tin ghi chú",
+            withdrawInfoTitle: "Thông tin rút tiền",
+            submitWithdraw: "Gửi yêu cầu rút tiền",
+            cryptoWithdrawFormTitle: "Thông tin rút tiền",
+            withdrawAddress: "Địa chỉ rút tiền",
+            withdrawAddressPlaceholder: "Nhập địa chỉ rút tiền",
+            withdrawSecurityNotice: "Thông báo quan trọng",
+            withdrawSecurityNoticeText: "Chỉ rút tiền đến địa chỉ ví/sàn giao dịch hỗ trợ mạng tương ứng. Mạng sai sẽ dẫn đến mất tài sản. Vui lòng xác nhận loại mạng và địa chỉ rút tiền khớp chính xác.",
+            availableBalance: "Số dư khả dụng",
+            minAmount: "Số tiền tối thiểu",
+            maxAmount: "Giới hạn giao dịch đơn lẻ",
+            dailyLimit: "Giới hạn hàng ngày",
+            feeRate: "Tỷ lệ phí",
+            fee: "Phí",
+            receivedAmount: "Số tiền nhận ước tính",
+            arrivalTime: "Thời gian đến ước tính",
+            // Exchange translations
+            actionExchange: "Đổi",
+            exchangeTitle: "Đổi",
+            exchangeFrom: "Từ",
+            exchangeTo: "Đến",
+            exchangeBalance: "Số dư:",
+            exchangeAmountPlaceholder: "0.00",
+            exchangeRate: "Tỷ giá",
+            exchangeFee: "Phí",
+            exchangeReceived: "Dự kiến nhận",
+            confirmExchange: "Xác nhận đổi",
           },
         };
 
         const textNodes = document.querySelectorAll("[data-i18n]");
         const langButtons = document.querySelectorAll(".lang-option");
         const langToggle = document.getElementById("lang-toggle");
+        const currencyDropdown = document.getElementById("currency-dropdown");
+
+        // 币种映射：语言 -> 默认币种
+        const defaultCurrencyMap = {
+          zh: "CNY",
+          en: "USD",
+          ja: "JPY",
+          de: "EUR",
+          vi: "USD",
+        };
+
+        // 获取默认币种
+        function getDefaultCurrency(lang) {
+          // 处理语言代码变体，如 "zh-CN" -> "zh"
+          const langCode = lang.split("-")[0];
+          return defaultCurrencyMap[langCode] || defaultCurrencyMap[lang] || "USD";
+        }
+
+        // 更新币种选择器
+        function updateCurrencySelector(lang) {
+          const defaultCurrency = getDefaultCurrency(lang);
+          if (currencyDropdown) {
+            currencyDropdown.value = defaultCurrency;
+          }
+        }
+
+        // Deposit Modal Logic - 提前定义，避免在 applyLanguage 中使用时未初始化
+        const depositModal = document.getElementById("deposit-modal");
+        const depositClose = document.getElementById("deposit-close");
+        
+        // 检查关键元素是否存在
+        if (!depositModal) {
+          console.error("Deposit modal element not found!");
+        }
+        if (!depositClose) {
+          console.error("Deposit close button not found!");
+        }
 
         function applyLanguage(lang) {
           const dict = translations[lang] || translations.zh;
           document.documentElement.lang = lang;
 
-          textNodes.forEach((node) => {
+          // 更新所有带有 data-i18n 的元素
+          document.querySelectorAll("[data-i18n]").forEach((node) => {
             const key = node.dataset.i18n;
             if (dict[key]) {
               if (node.tagName === "INPUT" || node.tagName === "TEXTAREA") {
-                node.placeholder = dict[key];
+                // 对于输入框，如果同时有 data-i18n-placeholder，则不更新文本内容
+                if (!node.hasAttribute("data-i18n-placeholder")) {
+                  node.value = dict[key];
+                }
               } else {
                 node.textContent = dict[key];
               }
             }
           });
+
+          // 更新所有带有 data-i18n-placeholder 的元素
+          document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
+            const key = node.dataset.i18nPlaceholder;
+            if (dict[key]) {
+              node.placeholder = dict[key];
+            }
+          });
+
+          // 更新币种选择器
+          updateCurrencySelector(lang);
+          
+          // 如果充值弹窗打开，更新表单内容（延迟检查，避免初始化顺序问题）
+          if (depositModal && depositModal.classList.contains("active")) {
+            // 使用 setTimeout 延迟执行，确保所有函数都已定义
+            setTimeout(() => {
+              if (typeof depositState !== 'undefined' && typeof updateFiatForm === 'function' && typeof updateCryptoForm === 'function') {
+                if (depositState.activeType === "fiat") {
+                  updateFiatForm();
+                } else {
+                  updateCryptoForm();
+                }
+              }
+            }, 0);
+          }
+          
+          // 重新绑定充值按钮（因为文本可能已更新）
+          if (typeof bindDepositButtons === 'function') {
+            setTimeout(bindDepositButtons, 100);
+          }
         }
 
         langButtons.forEach((button) => {
@@ -543,8 +1450,1984 @@
             }
           });
         });
+        
+        // 延迟查询充值按钮，确保 DOM 完全加载和翻译应用完成
+        let depositButtons = [];
+        function updateDepositButtons() {
+          depositButtons = Array.from(document.querySelectorAll(
+            '.wallet-action-btn[data-i18n="actionDeposit"], .action-link[data-i18n="actionDeposit"]'
+          ));
+        }
+        
+        // 初始化：设置默认语言和币种
+        // 获取当前语言，如果是 "zh-CN" 等，提取语言代码 "zh"
+        const htmlLang = document.documentElement.lang || "zh";
+        const initialLang = htmlLang.split("-")[0];
+        applyLanguage(initialLang);
 
-        applyLanguage("zh");
+        // 充值配置数据
+        const fiatDepositConfig = {
+          USD: {
+            bankName: "Chase Bank",
+            accountNo: "1234567890",
+            accountName: "Lavas Labs Inc.",
+            swift: "CHASUS33",
+            iban: "",
+            note: "请在转账备注中填写您的用户ID，以便快速到账。到账时间：1-3个工作日。",
+            requireReference: true,
+          },
+          HKD: {
+            bankName: "HSBC Hong Kong",
+            accountNo: "123-456-789-012",
+            accountName: "Lavas Labs Limited",
+            swift: "HSBCHKHH",
+            fps: "12345678",
+            note: "支持FPS快速转账。请在转账时填写备注信息。到账时间：即时到账（FPS）或1-2个工作日。",
+            requireReference: true,
+          },
+          EUR: {
+            bankName: "Deutsche Bank",
+            accountNo: "DE89370400440532013000",
+            accountName: "Lavas Labs GmbH",
+            swift: "DEUTDEFF",
+            iban: "DE89370400440532013000",
+            sepa: "DE89370400440532013000",
+            note: "支持SEPA转账。请确保填写正确的IBAN和SWIFT代码。到账时间：1-2个工作日。",
+            requireReference: false,
+          },
+        };
+
+        const cryptoDepositConfig = {
+          USDT: {
+            ERC20: {
+              address: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+              note: "ERC20网络，手续费较高但安全可靠。",
+            },
+            Polygon: {
+              address: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+              note: "Polygon网络，手续费低廉，到账速度快。",
+            },
+          },
+          USDC: {
+            ERC20: {
+              address: "0x07865c6E87B9F70255377e024ace6630C1Eaa37F",
+              note: "ERC20网络，请确保使用正确的网络进行充值。",
+            },
+            Polygon: {
+              address: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+              note: "Polygon网络，手续费低廉，到账速度快。",
+            },
+            Solana: {
+              address: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+              note: "Solana网络，交易速度快，手续费极低。",
+            },
+            Arbitrum: {
+              address: "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
+              note: "Arbitrum网络，Layer2扩容方案，手续费低。",
+            },
+          },
+        };
+
+        // ========== 提现配置数据 ==========
+        const fiatWithdrawConfig = {
+          USD: {
+            minAmount: 100,
+            feeRate: 0.001,
+            maxAmount: 100000,
+            dailyLimit: 500000,
+            arrivalTime: "1-3 business days",
+            availableBalance: 10000.00,
+            requireReference: false,
+          },
+          HKD: {
+            minAmount: 500,
+            feeRate: 0.0015,
+            maxAmount: 500000,
+            dailyLimit: 2000000,
+            arrivalTime: "1-2 business days",
+            availableBalance: 50000.00,
+            requireReference: false,
+          },
+          EUR: {
+            minAmount: 50,
+            feeRate: 0.001,
+            maxAmount: 50000,
+            dailyLimit: 200000,
+            arrivalTime: "1-2 business days",
+            availableBalance: 20000.00,
+            requireReference: false,
+          },
+        };
+
+        const cryptoWithdrawConfig = {
+          USDT: {
+            ERC20: {
+              minAmount: 10,
+              fee: 5,
+              maxAmount: 100000,
+              dailyLimit: 500000,
+              arrivalTime: "≈ 10–60 min",
+              availableBalance: 1000.00,
+            },
+            Polygon: {
+              minAmount: 5,
+              fee: 0.5,
+              maxAmount: 100000,
+              dailyLimit: 500000,
+              arrivalTime: "≈ 5–30 min",
+              availableBalance: 1000.00,
+            },
+          },
+          USDC: {
+            ERC20: {
+              minAmount: 10,
+              fee: 3,
+              maxAmount: 100000,
+              dailyLimit: 500000,
+              arrivalTime: "≈ 10–60 min",
+              availableBalance: 500.00,
+            },
+            Polygon: {
+              minAmount: 5,
+              fee: 0.3,
+              maxAmount: 100000,
+              dailyLimit: 500000,
+              arrivalTime: "≈ 5–30 min",
+              availableBalance: 500.00,
+            },
+            Solana: {
+              minAmount: 1,
+              fee: 0.01,
+              maxAmount: 100000,
+              dailyLimit: 500000,
+              arrivalTime: "≈ 1–5 min",
+              availableBalance: 500.00,
+            },
+            Arbitrum: {
+              minAmount: 5,
+              fee: 0.2,
+              maxAmount: 100000,
+              dailyLimit: 500000,
+              arrivalTime: "≈ 5–20 min",
+              availableBalance: 500.00,
+            },
+          },
+          XRP: {
+            XRPL: {
+              minAmount: 5,
+              fee: 0.1,
+              maxAmount: 100000,
+              dailyLimit: 500000,
+              arrivalTime: "≈ 5–15 min",
+              availableBalance: 5000.00,
+            },
+          },
+          XLM: {
+            Stellar: {
+              minAmount: 1,
+              fee: 0.05,
+              maxAmount: 100000,
+              dailyLimit: 500000,
+              arrivalTime: "≈ 5–15 min",
+              availableBalance: 3000.00,
+            },
+          },
+          EOS: {
+            EOS: {
+              minAmount: 1,
+              fee: 0.1,
+              maxAmount: 100000,
+              dailyLimit: 500000,
+              arrivalTime: "≈ 5–15 min",
+              availableBalance: 2000.00,
+            },
+          },
+        };
+
+        // ========== 充值弹窗功能 - 重写版本 ==========
+        
+        // 充值状态管理
+        let depositState = {
+          activeType: "fiat", // "fiat" | "crypto"
+          selectedCurrency: "USD",
+          selectedNetwork: "ERC20", // for crypto
+        };
+
+        // ========== 提现弹窗功能 ==========
+        
+        // 提现状态管理
+        let withdrawState = {
+          activeType: "fiat", // "fiat" | "crypto"
+          selectedCurrency: "USD",
+          selectedNetwork: "ERC20", // for crypto
+        };
+
+        // 打开充值弹窗 - 简化版本
+        function openDepositModal(currency = null, type = null) {
+          console.log("openDepositModal 被调用，参数:", currency, type);
+          
+          const modal = document.getElementById("deposit-modal");
+          if (!modal) {
+            console.error("充值弹窗元素未找到！");
+            alert("充值功能暂时不可用，请刷新页面重试。");
+            return;
+          }
+          
+          console.log("找到弹窗元素，当前类名:", modal.className);
+          
+          // 设置币种和类型
+          if (currency) {
+            if (["USD", "HKD", "EUR"].includes(currency)) {
+              depositState.activeType = "fiat";
+              depositState.selectedCurrency = currency;
+            } else if (["USDT", "USDC"].includes(currency)) {
+              depositState.activeType = "crypto";
+              depositState.selectedCurrency = currency;
+            }
+          }
+          if (type) {
+            depositState.activeType = type;
+          }
+
+          console.log("当前状态:", depositState);
+
+          // 更新UI
+          updateDepositUI();
+          
+          // 应用当前语言翻译到弹窗
+          const currentLang = document.documentElement.lang || "zh";
+          applyLanguage(currentLang);
+          
+          // 显示弹窗
+          modal.classList.add("active");
+            document.body.style.overflow = "hidden";
+          
+          console.log("弹窗已打开，新类名:", modal.className);
+          console.log("弹窗计算样式display:", window.getComputedStyle(modal).display);
+          
+          // 验证弹窗是否真的显示了
+          setTimeout(function() {
+            const display = window.getComputedStyle(modal).display;
+            if (display === "none") {
+              console.error("弹窗未显示！强制显示...");
+              modal.style.display = "flex";
+              modal.style.position = "fixed";
+              modal.style.top = "0";
+              modal.style.left = "0";
+              modal.style.right = "0";
+              modal.style.bottom = "0";
+              modal.style.zIndex = "1000";
+              modal.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+          } else {
+              console.log("弹窗显示成功，display:", display);
+            }
+          }, 50);
+        }
+        
+        // 测试函数：在控制台可以直接调用 testDepositModal() 来测试弹窗
+        window.testDepositModal = function() {
+          console.log("=== 测试充值弹窗 ===");
+          const btn = document.getElementById("deposit-btn-main");
+          console.log("主充值按钮:", btn);
+          if (btn) {
+            console.log("按钮类名:", btn.className);
+            console.log("按钮onclick:", btn.onclick);
+            console.log("触发点击事件...");
+            btn.click();
+          } else {
+            console.error("主充值按钮未找到！");
+          }
+        };
+
+        // 关闭充值弹窗
+        function closeDepositModal() {
+          const modal = document.getElementById("deposit-modal");
+          if (modal) {
+            modal.classList.remove("active");
+          }
+          document.body.style.overflow = "";
+        }
+
+        // 币种选择监听器设置函数 - 需要在外部作用域定义，以便updateDepositUI可以调用
+        function setupCurrencyItemListeners() {
+          document.querySelectorAll(".currency-item").forEach((item) => {
+            item.onclick = function() {
+              depositState.selectedCurrency = this.dataset.currency;
+              if (depositState.activeType === "crypto") {
+                const config = cryptoDepositConfig[depositState.selectedCurrency];
+                if (config) {
+                  const networks = Object.keys(config);
+                  if (!networks.includes(depositState.selectedNetwork)) {
+                    depositState.selectedNetwork = networks[0];
+                  }
+                }
+              }
+              updateDepositUI();
+              // 更新语言翻译
+              const currentLang = document.documentElement.lang || "zh";
+              applyLanguage(currentLang);
+            };
+          });
+        }
+
+        // 更新充值UI
+        function updateDepositUI() {
+          // 更新Tab
+          document.querySelectorAll(".type-tab").forEach((tab) => {
+            if (tab.dataset.type === depositState.activeType) {
+              tab.classList.add("active");
+            } else {
+              tab.classList.remove("active");
+            }
+          });
+
+          // 更新币种列表显示
+          const fiatList = document.getElementById("fiat-currency-list");
+          const cryptoList = document.getElementById("crypto-currency-list");
+          if (depositState.activeType === "fiat") {
+            fiatList.classList.remove("hidden");
+            cryptoList.classList.add("hidden");
+          } else {
+            fiatList.classList.add("hidden");
+            cryptoList.classList.remove("hidden");
+            // 切换币种时，重置网络为第一个可用网络
+            const config = cryptoDepositConfig[depositState.selectedCurrency];
+            if (config) {
+              const networks = Object.keys(config);
+              if (networks.length > 0 && !networks.includes(depositState.selectedNetwork)) {
+                depositState.selectedNetwork = networks[0];
+              }
+            }
+          }
+
+          // 更新币种选中状态
+          document.querySelectorAll(".currency-item").forEach((item) => {
+            if (item.dataset.currency === depositState.selectedCurrency) {
+              item.classList.add("active");
+            } else {
+              item.classList.remove("active");
+            }
+          });
+          
+          // 重新设置币种选择监听器（因为列表可能已更新）
+          setupCurrencyItemListeners();
+
+          // 更新表单显示
+          const fiatForm = document.getElementById("fiat-deposit-form");
+          const cryptoForm = document.getElementById("crypto-deposit-form");
+          if (depositState.activeType === "fiat") {
+            fiatForm.classList.remove("hidden");
+            cryptoForm.classList.add("hidden");
+            updateFiatForm();
+          } else {
+            fiatForm.classList.add("hidden");
+            cryptoForm.classList.remove("hidden");
+            updateCryptoForm();
+          }
+        }
+
+        // 更新法币表单
+        function updateFiatForm() {
+          const config = fiatDepositConfig[depositState.selectedCurrency];
+          if (!config) return;
+
+          const currentLang = document.documentElement.lang || "zh";
+          const dict = translations[currentLang] || translations.zh;
+
+          const bankInfoContainer = document.getElementById("fiat-bank-info");
+          bankInfoContainer.innerHTML = `
+            <div class="info-row">
+              <span class="info-label">${dict.bankName || "收款银行名称"}</span>
+              <span class="info-value">${config.bankName}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">${dict.accountNo || "收款账号"}</span>
+              <span class="info-value"><code>${config.accountNo}</code></span>
+            </div>
+            ${config.iban ? `
+            <div class="info-row">
+              <span class="info-label">IBAN</span>
+              <span class="info-value"><code>${config.iban}</code></span>
+            </div>
+            ` : ""}
+            <div class="info-row">
+              <span class="info-label">${dict.accountName || "收款户名"}</span>
+              <span class="info-value">${config.accountName}</span>
+            </div>
+            ${config.swift ? `
+            <div class="info-row">
+              <span class="info-label">SWIFT</span>
+              <span class="info-value"><code>${config.swift}</code></span>
+            </div>
+            ` : ""}
+            ${config.fps ? `
+            <div class="info-row">
+              <span class="info-label">FPS ID</span>
+              <span class="info-value"><code>${config.fps}</code></span>
+            </div>
+            ` : ""}
+            ${config.sepa ? `
+            <div class="info-row">
+              <span class="info-label">SEPA</span>
+              <span class="info-value"><code>${config.sepa}</code></span>
+            </div>
+            ` : ""}
+            ${config.note ? `
+            <div class="info-row">
+              <span class="info-label">${dict.note || "特别说明"}</span>
+              <span class="info-value" style="font-weight: 400; font-size: 0.85rem;">${config.note}</span>
+            </div>
+            ` : ""}
+          `;
+
+          // 更新备注字段是否必填
+          const referenceInput = document.querySelector('#fiat-form input[name="reference"]');
+          if (referenceInput) {
+            referenceInput.required = config.requireReference || false;
+          }
+        }
+
+        // 更新数字货币表单
+        function updateCryptoForm() {
+          const config = cryptoDepositConfig[depositState.selectedCurrency];
+          if (!config) return;
+
+          // 确保选择的网络在当前币种中可用
+          const networks = Object.keys(config);
+          if (!networks.includes(depositState.selectedNetwork)) {
+            depositState.selectedNetwork = networks[0];
+          }
+
+          // 更新网络选择器
+          const networkSelector = document.getElementById("network-selector");
+          networkSelector.innerHTML = networks
+            .map(
+              (network) => `
+            <button class="network-btn ${network === depositState.selectedNetwork ? "active" : ""}" 
+                    data-network="${network}" 
+                    aria-label="选择${network}网络" 
+                    title="选择${network}网络">${network}</button>
+          `
+            )
+            .join("");
+
+          // 添加网络选择事件（先移除旧的事件监听器，再添加新的）
+          networkSelector.querySelectorAll(".network-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              depositState.selectedNetwork = btn.dataset.network;
+              updateCryptoAddress();
+              updateNetworkSelector();
+            });
+          });
+
+          updateCryptoAddress();
+          updateNetworkSelector();
+        }
+
+        // 更新网络选择器状态
+        function updateNetworkSelector() {
+          document.querySelectorAll(".network-btn").forEach((btn) => {
+            if (btn.dataset.network === depositState.selectedNetwork) {
+              btn.classList.add("active");
+            } else {
+              btn.classList.remove("active");
+            }
+          });
+        }
+
+        // 更新数字货币地址和二维码
+        function updateCryptoAddress() {
+          const config = cryptoDepositConfig[depositState.selectedCurrency];
+          if (!config) return;
+
+          const networkConfig = config[depositState.selectedNetwork];
+          if (!networkConfig) return;
+
+          const addressInput = document.getElementById("crypto-address");
+          const qrContainer = document.getElementById("qr-code-container");
+
+          // 更新地址
+          addressInput.value = networkConfig.address;
+
+          // 生成二维码
+          qrContainer.innerHTML = "";
+          
+          // 检查 QRCode 库是否已加载
+          if (typeof QRCode === 'undefined') {
+            qrContainer.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">二维码功能暂时不可用<br>请复制地址进行充值</p>';
+            console.warn("QRCode library is not loaded");
+          } else {
+            QRCode.toCanvas(
+              qrContainer,
+              networkConfig.address,
+              {
+                width: 256,
+                margin: 2,
+                color: {
+                  dark: "#1a1a1a",
+                  light: "#ffffff",
+                },
+              },
+              function (error) {
+                if (error) {
+                  console.error("QR Code generation error:", error);
+                  qrContainer.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">二维码生成失败<br>请复制地址进行充值</p>';
+                }
+              }
+            );
+          }
+          
+          // 确保网络选择器的高亮状态正确
+          updateNetworkSelector();
+        }
+
+        // 复制地址
+        function copyToClipboard(text, button) {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => {
+              const originalText = button.textContent;
+              button.textContent = "已复制";
+              button.style.background = "#4ade80";
+              button.style.borderColor = "#4ade80";
+              button.style.color = "#ffffff";
+              setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = "";
+                button.style.borderColor = "";
+                button.style.color = "";
+              }, 2000);
+            })
+            .catch((err) => {
+              console.error("Failed to copy:", err);
+              // Fallback for older browsers
+              const textarea = document.createElement("textarea");
+              textarea.value = text;
+              document.body.appendChild(textarea);
+              textarea.select();
+              document.execCommand("copy");
+              document.body.removeChild(textarea);
+              button.textContent = "已复制";
+              setTimeout(() => {
+                button.textContent = "复制地址";
+              }, 2000);
+            });
+        }
+
+        // 充值按钮点击处理函数
+        function handleDepositButtonClick(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              
+          console.log("充值按钮被点击了！");
+          
+          // 获取被点击的按钮（支持点击按钮内部的元素）
+          let button = e.currentTarget;
+          if (!button || button.tagName !== 'BUTTON') {
+            button = e.target.closest('button');
+          }
+          
+          if (!button) {
+            console.error("无法找到按钮元素");
+                return;
+              }
+          
+          console.log("按钮ID:", button.id);
+              
+              // 尝试从表格行中获取币种信息
+          const row = button.closest("tr");
+              if (row) {
+                const assetNameCell = row.querySelector(".asset-name");
+                if (assetNameCell) {
+                  const assetName = assetNameCell.textContent.trim();
+                  const currencyMatch = assetName.match(/^([A-Z]+)/);
+                  if (currencyMatch) {
+                    const currency = currencyMatch[1];
+                const type = row.dataset.type === "fiat" ? "fiat" : "crypto";
+                console.log("打开充值弹窗，币种:", currency, "类型:", type);
+                openDepositModal(currency, type);
+                    return;
+                  }
+                }
+              }
+          
+          // 默认打开弹窗
+          console.log("打开充值弹窗（默认）");
+              openDepositModal();
+        }
+
+        // 绑定充值按钮 - 使用addEventListener确保可靠
+        function bindDepositButtons() {
+          console.log("开始绑定充值按钮...");
+          
+          // 绑定主充值按钮
+          const mainBtn = document.getElementById("deposit-btn-main");
+          if (mainBtn) {
+            // 移除旧的事件监听器
+            const newMainBtn = mainBtn.cloneNode(true);
+            mainBtn.parentNode.replaceChild(newMainBtn, mainBtn);
+            
+            // 使用addEventListener绑定
+            newMainBtn.addEventListener("click", handleDepositButtonClick);
+            // 同时设置onclick作为备用
+            newMainBtn.onclick = handleDepositButtonClick;
+            
+            console.log("主充值按钮绑定成功，ID:", newMainBtn.id);
+          } else {
+            console.error("主充值按钮未找到！");
+          }
+          
+          // 绑定表格中的充值按钮
+          const tableButtons = document.querySelectorAll('.action-link[data-i18n="actionDeposit"]');
+          console.log("找到", tableButtons.length, "个表格充值按钮");
+          
+          tableButtons.forEach((btn, index) => {
+            // 移除旧的事件监听器
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+            
+            // 使用addEventListener绑定
+            newBtn.addEventListener("click", handleDepositButtonClick);
+            // 同时设置onclick作为备用
+            newBtn.onclick = handleDepositButtonClick;
+            
+            console.log("表格充值按钮", index, "绑定成功");
+          });
+          
+          console.log("充值按钮绑定完成");
+        }
+        
+        // 页面加载后绑定按钮
+        function initDepositButtons() {
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+              bindDepositButtons();
+            });
+          } else {
+            bindDepositButtons();
+          }
+        }
+        
+        // 立即执行绑定
+        initDepositButtons();
+        
+        // 延迟绑定确保所有元素都已渲染
+        setTimeout(bindDepositButtons, 300);
+        setTimeout(bindDepositButtons, 1000);
+        
+        // 页面完全加载后再次绑定
+        window.addEventListener('load', function() {
+          console.log("页面加载完成，重新绑定充值按钮");
+          bindDepositButtons();
+        });
+
+        // 初始化弹窗功能
+        function initDepositModal() {
+          // 关闭按钮
+          const closeBtn = document.getElementById("deposit-close");
+          if (closeBtn) {
+            closeBtn.onclick = function(e) {
+            e.preventDefault();
+            closeDepositModal();
+            };
+        }
+
+        // 点击背景关闭
+          const modal = document.getElementById("deposit-modal");
+          if (modal) {
+            modal.onclick = function(e) {
+              if (e.target === modal) {
+              closeDepositModal();
+            }
+            };
+        }
+
+        // ESC键关闭
+          document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") {
+              const modal = document.getElementById("deposit-modal");
+              if (modal && modal.classList.contains("active")) {
+            closeDepositModal();
+              }
+          }
+        });
+
+        // Tab切换
+        document.querySelectorAll(".type-tab").forEach((tab) => {
+            tab.onclick = function() {
+              depositState.activeType = this.dataset.type;
+            if (depositState.activeType === "fiat") {
+              depositState.selectedCurrency = "USD";
+            } else {
+              depositState.selectedCurrency = "USDT";
+            }
+            depositState.selectedNetwork = "ERC20";
+            updateDepositUI();
+              // 更新语言翻译
+              const currentLang = document.documentElement.lang || "zh";
+              applyLanguage(currentLang);
+            };
+          });
+
+          // 币种选择监听器已在外部作用域定义，直接调用即可
+        setupCurrencyItemListeners();
+
+        // 复制地址按钮
+          const copyAddressBtn = document.getElementById("copy-address");
+          if (copyAddressBtn) {
+            copyAddressBtn.onclick = function() {
+          const address = document.getElementById("crypto-address").value;
+              copyToClipboard(address, this);
+            };
+          }
+
+
+        // 提交法币充值表单
+          const submitBtn = document.getElementById("submit-fiat-deposit");
+          if (submitBtn) {
+            submitBtn.onclick = function(e) {
+          e.preventDefault();
+          const form = document.getElementById("fiat-form");
+              if (form && form.checkValidity()) {
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            console.log("Fiat deposit submission:", {
+              currency: depositState.selectedCurrency,
+              ...data,
+            });
+            alert("充值信息已提交，请完成银行转账。");
+              } else if (form) {
+            form.reportValidity();
+          }
+            };
+          }
+
+        // 确认转账
+          const confirmBtn = document.getElementById("confirm-transfer");
+          if (confirmBtn) {
+            confirmBtn.onclick = function() {
+          if (confirm("确认已完成银行转账？")) {
+            console.log("Transfer confirmed");
+            alert("转账确认已提交，我们将在收到款项后尽快处理。");
+            closeDepositModal();
+              }
+            };
+          }
+        }
+        
+        // 页面加载后初始化弹窗
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initDepositModal);
+        } else {
+          initDepositModal();
+        }
+        
+        // 延迟初始化确保所有元素都已渲染
+        setTimeout(initDepositModal, 500);
+
+        // ========== 提现弹窗功能实现 ==========
+
+        // 打开提现弹窗
+        function openWithdrawModal(currency = null, type = null) {
+          const modal = document.getElementById("withdraw-modal");
+          if (!modal) {
+            console.error("Withdraw modal not found!");
+            return;
+          }
+          
+          // 设置币种和类型
+          if (currency) {
+            if (["USD", "HKD", "EUR"].includes(currency)) {
+              withdrawState.activeType = "fiat";
+              withdrawState.selectedCurrency = currency;
+            } else if (["USDT", "USDC"].includes(currency)) {
+              withdrawState.activeType = "crypto";
+              withdrawState.selectedCurrency = currency;
+            }
+          }
+          if (type) {
+            withdrawState.activeType = type;
+          }
+
+          // 更新UI
+          updateWithdrawUI();
+          
+          // 应用当前语言翻译到弹窗
+          const currentLang = document.documentElement.lang || "zh";
+          applyLanguage(currentLang);
+          
+          if (withdrawState.activeType === "crypto") {
+            setTimeout(() => {
+              updateCryptoWithdrawForm();
+            }, 50);
+          }
+          
+          // 显示弹窗
+          modal.classList.add("active");
+          document.body.style.overflow = "hidden";
+        }
+
+        // 关闭提现弹窗
+        function closeWithdrawModal() {
+          const modal = document.getElementById("withdraw-modal");
+          if (modal) {
+            modal.classList.remove("active");
+          }
+          document.body.style.overflow = "";
+        }
+
+        // 更新提现UI
+        function updateWithdrawUI() {
+          // 更新Tab
+          const withdrawTabs = document.querySelectorAll("#withdraw-modal .type-tab");
+          withdrawTabs.forEach((tab) => {
+            if (tab.dataset.type === withdrawState.activeType) {
+              tab.classList.add("active");
+            } else {
+              tab.classList.remove("active");
+            }
+          });
+
+          // 更新币种列表显示
+          const fiatList = document.getElementById("withdraw-fiat-currency-list");
+          const cryptoList = document.getElementById("withdraw-crypto-currency-list");
+          if (withdrawState.activeType === "fiat") {
+            fiatList.classList.remove("hidden");
+            cryptoList.classList.add("hidden");
+          } else {
+            fiatList.classList.add("hidden");
+            cryptoList.classList.remove("hidden");
+            // 切换币种时，重置网络为第一个可用网络
+            const config = cryptoWithdrawConfig[withdrawState.selectedCurrency];
+            if (config) {
+              const networks = Object.keys(config);
+              if (networks.length > 0 && !networks.includes(withdrawState.selectedNetwork)) {
+                withdrawState.selectedNetwork = networks[0];
+              }
+            }
+          }
+
+          // 更新币种选中状态
+          document.querySelectorAll("#withdraw-modal .currency-item").forEach((item) => {
+            if (item.dataset.currency === withdrawState.selectedCurrency) {
+              item.classList.add("active");
+            } else {
+              item.classList.remove("active");
+            }
+          });
+
+          // 重新设置币种选择监听器
+          setupWithdrawCurrencyItemListeners();
+
+          // 更新表单显示
+          const fiatForm = document.getElementById("fiat-withdraw-form");
+          const cryptoForm = document.getElementById("crypto-withdraw-form");
+          if (withdrawState.activeType === "fiat") {
+            fiatForm.classList.remove("hidden");
+            cryptoForm.classList.add("hidden");
+            updateFiatWithdrawForm();
+          } else {
+            fiatForm.classList.add("hidden");
+            cryptoForm.classList.remove("hidden");
+            updateCryptoWithdrawForm();
+          }
+        }
+
+        // 币种选择监听器设置函数（提现）
+        function setupWithdrawCurrencyItemListeners() {
+          document.querySelectorAll("#withdraw-modal .currency-item").forEach((item) => {
+            item.onclick = function() {
+              withdrawState.selectedCurrency = this.dataset.currency;
+              if (withdrawState.activeType === "crypto") {
+                const config = cryptoWithdrawConfig[withdrawState.selectedCurrency];
+                if (config) {
+                  const networks = Object.keys(config);
+                  if (!networks.includes(withdrawState.selectedNetwork)) {
+                    withdrawState.selectedNetwork = networks[0];
+                  }
+                }
+              }
+              updateWithdrawUI();
+              // 更新语言翻译
+              const currentLang = document.documentElement.lang || "zh";
+              applyLanguage(currentLang);
+              if (withdrawState.activeType === "crypto") {
+                setTimeout(() => {
+                  updateCryptoWithdrawForm();
+                }, 50);
+              }
+            };
+          });
+        }
+
+        // 更新法币提现表单
+        function updateFiatWithdrawForm() {
+          const config = fiatWithdrawConfig[withdrawState.selectedCurrency];
+          if (!config) return;
+
+          const currentLang = document.documentElement.lang || "zh";
+          const dict = translations[currentLang] || translations.zh;
+
+          const infoContainer = document.getElementById("fiat-withdraw-info");
+          const availableBalance = config.availableBalance || 0;
+          const minAmount = config.minAmount || 0;
+          const maxAmount = config.maxAmount || 0;
+          const dailyLimit = config.dailyLimit || 0;
+          const feeRate = config.feeRate || 0;
+          const arrivalTime = config.arrivalTime || "";
+
+          infoContainer.innerHTML = `
+            <div class="info-row">
+              <span class="info-label">${dict.availableBalance || "可用余额"}</span>
+              <span class="info-value">${availableBalance.toLocaleString()} ${withdrawState.selectedCurrency}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">${dict.minAmount || "最低提现金额"}</span>
+              <span class="info-value">${minAmount.toLocaleString()} ${withdrawState.selectedCurrency}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">${dict.maxAmount || "单笔限额"}</span>
+              <span class="info-value">${maxAmount.toLocaleString()} ${withdrawState.selectedCurrency}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">${dict.dailyLimit || "单日限额"}</span>
+              <span class="info-value">${dailyLimit.toLocaleString()} ${withdrawState.selectedCurrency}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">${dict.feeRate || "手续费率"}</span>
+              <span class="info-value">${(feeRate * 100).toFixed(2)}%</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">${dict.arrivalTime || "预计到账时间"}</span>
+              <span class="info-value" style="font-weight: 400; font-size: 0.85rem;">${arrivalTime}</span>
+            </div>
+          `;
+
+          // 实时计算手续费和到账金额
+          const amountInput = document.getElementById("withdraw-amount");
+          if (amountInput) {
+            amountInput.oninput = function() {
+              calculateFiatWithdrawFee();
+            };
+          }
+        }
+
+        // 计算法币提现手续费和到账金额
+        function calculateFiatWithdrawFee() {
+          const config = fiatWithdrawConfig[withdrawState.selectedCurrency];
+          if (!config) return;
+
+          const amountInput = document.getElementById("withdraw-amount");
+          const amount = parseFloat(amountInput.value) || 0;
+          const fee = amount * config.feeRate;
+          const received = amount - fee;
+
+          // 更新显示（如果存在显示区域）
+          let feeDisplay = document.getElementById("calculated-fee");
+          let receivedDisplay = document.getElementById("calculated-received");
+          
+          if (!feeDisplay) {
+            const infoContainer = document.getElementById("fiat-withdraw-info");
+            feeDisplay = document.createElement("div");
+            feeDisplay.id = "calculated-fee";
+            feeDisplay.className = "info-row";
+            receivedDisplay = document.createElement("div");
+            receivedDisplay.id = "calculated-received";
+            receivedDisplay.className = "info-row";
+            infoContainer.appendChild(feeDisplay);
+            infoContainer.appendChild(receivedDisplay);
+          }
+
+          const currentLang = document.documentElement.lang || "zh";
+          const dict = translations[currentLang] || translations.zh;
+
+          if (amount > 0) {
+            feeDisplay.innerHTML = `
+              <span class="info-label">${dict.fee || "手续费"}</span>
+              <span class="info-value">${fee.toFixed(2)} ${withdrawState.selectedCurrency}</span>
+            `;
+            receivedDisplay.innerHTML = `
+              <span class="info-label">${dict.receivedAmount || "预计到账金额"}</span>
+              <span class="info-value" style="color: #4ade80; font-weight: 600;">${received.toFixed(2)} ${withdrawState.selectedCurrency}</span>
+            `;
+          } else {
+            feeDisplay.innerHTML = "";
+            receivedDisplay.innerHTML = "";
+          }
+        }
+
+        // 更新数字货币提现表单
+        function updateCryptoWithdrawForm() {
+          const config = cryptoWithdrawConfig[withdrawState.selectedCurrency];
+          if (!config) return;
+
+          // 确保选择的网络在当前币种中可用
+          const networks = Object.keys(config);
+          if (!networks.includes(withdrawState.selectedNetwork)) {
+            withdrawState.selectedNetwork = networks[0];
+          }
+
+          // 更新网络选择器
+          const networkSelector = document.getElementById("withdraw-network-selector");
+          networkSelector.innerHTML = networks
+            .map(
+              (network) => `
+            <button class="network-btn ${network === withdrawState.selectedNetwork ? "active" : ""}" 
+                    data-network="${network}" 
+                    aria-label="选择${network}网络" 
+                    title="选择${network}网络">${network}</button>
+          `
+            )
+            .join("");
+
+          // 添加网络选择事件
+          networkSelector.querySelectorAll(".network-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              withdrawState.selectedNetwork = btn.dataset.network;
+              updateCryptoWithdrawForm();
+            });
+          });
+
+          const networkConfig = config[withdrawState.selectedNetwork];
+          if (!networkConfig) {
+            console.error("Network config not found for:", withdrawState.selectedNetwork);
+            return;
+          }
+
+          // 更新提现信息显示
+          updateCryptoWithdrawInfo();
+        }
+
+        // 更新数字货币提现信息
+        function updateCryptoWithdrawInfo() {
+          const config = cryptoWithdrawConfig[withdrawState.selectedCurrency];
+          if (!config) return;
+
+          const networkConfig = config[withdrawState.selectedNetwork];
+          if (!networkConfig) return;
+
+          const currentLang = document.documentElement.lang || "zh";
+          const dict = translations[currentLang] || translations.zh;
+
+          const infoContainer = document.getElementById("crypto-withdraw-info");
+          const availableBalance = networkConfig.availableBalance || 0;
+          const minAmount = networkConfig.minAmount || 0;
+          const maxAmount = networkConfig.maxAmount || 0;
+          const dailyLimit = networkConfig.dailyLimit || 0;
+          const fee = networkConfig.fee || 0;
+          const arrivalTime = networkConfig.arrivalTime || "";
+
+          infoContainer.innerHTML = `
+            <div class="info-row">
+              <span class="info-label">${dict.availableBalance || "可用余额"}</span>
+              <span class="info-value">${availableBalance.toLocaleString()} ${withdrawState.selectedCurrency}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">${dict.minAmount || "最低提现金额"}</span>
+              <span class="info-value">${minAmount.toLocaleString()} ${withdrawState.selectedCurrency}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">${dict.maxAmount || "单笔限额"}</span>
+              <span class="info-value">${maxAmount.toLocaleString()} ${withdrawState.selectedCurrency}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">${dict.dailyLimit || "单日限额"}</span>
+              <span class="info-value">${dailyLimit.toLocaleString()} ${withdrawState.selectedCurrency}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">${dict.fee || "手续费"}</span>
+              <span class="info-value">${fee} ${withdrawState.selectedCurrency}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">${dict.arrivalTime || "预计到账时间"}</span>
+              <span class="info-value" style="font-weight: 400; font-size: 0.85rem;">${arrivalTime}</span>
+            </div>
+          `;
+
+          // 实时计算到账金额
+          const amountInput = document.getElementById("crypto-withdraw-amount");
+          if (amountInput) {
+            amountInput.oninput = function() {
+              calculateCryptoWithdrawReceived();
+            };
+          }
+        }
+
+        // 计算数字货币提现到账金额
+        function calculateCryptoWithdrawReceived() {
+          const config = cryptoWithdrawConfig[withdrawState.selectedCurrency];
+          if (!config) return;
+
+          const networkConfig = config[withdrawState.selectedNetwork];
+          if (!networkConfig) return;
+
+          const amountInput = document.getElementById("crypto-withdraw-amount");
+          const amount = parseFloat(amountInput.value) || 0;
+          const fee = networkConfig.fee || 0;
+          const received = amount - fee;
+
+          // 更新显示（如果存在显示区域）
+          let receivedDisplay = document.getElementById("calculated-crypto-received");
+          
+          if (!receivedDisplay) {
+            const infoContainer = document.getElementById("crypto-withdraw-info");
+            receivedDisplay = document.createElement("div");
+            receivedDisplay.id = "calculated-crypto-received";
+            receivedDisplay.className = "info-row";
+            infoContainer.appendChild(receivedDisplay);
+          }
+
+          const currentLang = document.documentElement.lang || "zh";
+          const dict = translations[currentLang] || translations.zh;
+
+          if (amount > 0) {
+            receivedDisplay.innerHTML = `
+              <span class="info-label">${dict.receivedAmount || "预计到账金额"}</span>
+              <span class="info-value" style="color: #4ade80; font-weight: 600;">${received.toFixed(8)} ${withdrawState.selectedCurrency}</span>
+            `;
+          } else {
+            receivedDisplay.innerHTML = "";
+          }
+        }
+
+        // 提现按钮点击处理
+        function handleWithdrawButtonClick(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // 获取被点击的按钮
+          let button = e.currentTarget || e.target.closest('button');
+          if (!button) return;
+          
+          // 尝试从表格行中获取币种信息
+          const row = button.closest("tr");
+          if (row) {
+            const assetNameCell = row.querySelector(".asset-name");
+            if (assetNameCell) {
+              const assetName = assetNameCell.textContent.trim();
+              const currencyMatch = assetName.match(/^([A-Z]+)/);
+              if (currencyMatch) {
+                const currency = currencyMatch[1];
+                const type = row.dataset.type === "fiat" ? "fiat" : "crypto";
+                openWithdrawModal(currency, type);
+                return;
+              }
+            }
+          }
+          
+          // 默认打开弹窗
+          openWithdrawModal();
+        }
+
+        // 绑定提现按钮
+        function bindWithdrawButtons() {
+          // 绑定主提现按钮
+          const mainBtn = document.querySelector('.wallet-action-btn[data-i18n="actionWithdraw"]');
+          if (mainBtn && !mainBtn.id) {
+            mainBtn.id = "withdraw-btn-main";
+            mainBtn.onclick = handleWithdrawButtonClick;
+          }
+          
+          // 绑定表格中的提现按钮
+          const tableButtons = document.querySelectorAll('.action-link[data-i18n="actionWithdraw"]');
+          tableButtons.forEach(btn => {
+            btn.onclick = handleWithdrawButtonClick;
+          });
+        }
+        
+        // 页面加载后绑定按钮
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', bindWithdrawButtons);
+        } else {
+          bindWithdrawButtons();
+        }
+        
+        // 延迟绑定确保所有元素都已渲染
+        setTimeout(bindWithdrawButtons, 500);
+
+        // 初始化提现弹窗功能
+        function initWithdrawModal() {
+          // 关闭按钮
+          const closeBtn = document.getElementById("withdraw-close");
+          if (closeBtn) {
+            closeBtn.onclick = function(e) {
+              e.preventDefault();
+              closeWithdrawModal();
+            };
+          }
+          
+          // 点击背景关闭
+          const modal = document.getElementById("withdraw-modal");
+          if (modal) {
+            modal.onclick = function(e) {
+              if (e.target === modal) {
+                closeWithdrawModal();
+              }
+            };
+          }
+          
+          // ESC键关闭
+          document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") {
+              const modal = document.getElementById("withdraw-modal");
+              if (modal && modal.classList.contains("active")) {
+                closeWithdrawModal();
+              }
+            }
+          });
+
+          // Tab切换
+          document.querySelectorAll("#withdraw-modal .type-tab").forEach((tab) => {
+            tab.onclick = function() {
+              withdrawState.activeType = this.dataset.type;
+              if (withdrawState.activeType === "fiat") {
+                withdrawState.selectedCurrency = "USD";
+              } else {
+                withdrawState.selectedCurrency = "USDT";
+              }
+              withdrawState.selectedNetwork = "ERC20";
+              updateWithdrawUI();
+              // 更新语言翻译
+              const currentLang = document.documentElement.lang || "zh";
+              applyLanguage(currentLang);
+              if (withdrawState.activeType === "crypto") {
+                setTimeout(() => {
+                  updateCryptoWithdrawForm();
+                }, 50);
+              }
+            };
+          });
+
+          // 提交法币提现表单
+          const submitFiatBtn = document.getElementById("submit-fiat-withdraw");
+          if (submitFiatBtn) {
+            submitFiatBtn.onclick = function(e) {
+              e.preventDefault();
+              const form = document.getElementById("fiat-withdraw-form-element");
+              if (form && form.checkValidity()) {
+                const config = fiatWithdrawConfig[withdrawState.selectedCurrency];
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                const amount = parseFloat(data.amount) || 0;
+                
+                // 验证金额
+                if (amount > config.availableBalance) {
+                  alert("提现金额不能超过可用余额");
+                  return;
+                }
+                if (amount < config.minAmount) {
+                  alert(`提现金额不能低于最低提现金额 ${config.minAmount} ${withdrawState.selectedCurrency}`);
+                  return;
+                }
+                if (amount > config.maxAmount) {
+                  alert(`提现金额不能超过单笔限额 ${config.maxAmount} ${withdrawState.selectedCurrency}`);
+                  return;
+                }
+                
+                console.log("Fiat withdraw submission:", {
+                  currency: withdrawState.selectedCurrency,
+                  ...data,
+                });
+                alert("提现申请已提交，我们将在审核后尽快处理。");
+                closeWithdrawModal();
+              } else if (form) {
+                form.reportValidity();
+              }
+            };
+          }
+
+          // 提交数字货币提现表单
+          const submitCryptoBtn = document.getElementById("submit-crypto-withdraw");
+          if (submitCryptoBtn) {
+            submitCryptoBtn.onclick = function(e) {
+              e.preventDefault();
+              const form = document.getElementById("crypto-withdraw-form-element");
+              if (form && form.checkValidity()) {
+                const config = cryptoWithdrawConfig[withdrawState.selectedCurrency];
+                const networkConfig = config[withdrawState.selectedNetwork];
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                const amount = parseFloat(data.amount) || 0;
+                const address = data.address.trim();
+                
+                // 验证金额
+                if (amount > networkConfig.availableBalance) {
+                  alert("提现金额不能超过可用余额");
+                  return;
+                }
+                if (amount < networkConfig.minAmount) {
+                  alert(`提现金额不能低于最低提现金额 ${networkConfig.minAmount} ${withdrawState.selectedCurrency}`);
+                  return;
+                }
+                if (amount > networkConfig.maxAmount) {
+                  alert(`提现金额不能超过单笔限额 ${networkConfig.maxAmount} ${withdrawState.selectedCurrency}`);
+                  return;
+                }
+                
+                // 验证地址格式
+                if (!address) {
+                  alert("请输入提现地址");
+                  return;
+                }
+                // 网络地址验证
+                if (["ERC20", "Polygon", "Arbitrum"].includes(withdrawState.selectedNetwork) && !address.startsWith("0x")) {
+                  alert("该网络地址必须以0x开头");
+                  return;
+                }
+                if (withdrawState.selectedNetwork === "Solana" && !address.match(/^[1-9A-HJ-NP-Za-km-z]{32,44}$/)) {
+                  alert("Solana地址格式不正确");
+                  return;
+                }
+                
+                console.log("Crypto withdraw submission:", {
+                  currency: withdrawState.selectedCurrency,
+                  network: withdrawState.selectedNetwork,
+                  ...data,
+                });
+                alert("提现申请已提交，我们将在审核后尽快处理。");
+                closeWithdrawModal();
+              } else if (form) {
+                form.reportValidity();
+              }
+            };
+          }
+        }
+        
+        // 页面加载后初始化提现弹窗
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initWithdrawModal);
+        } else {
+          initWithdrawModal();
+        }
+        
+        // 延迟初始化确保所有元素都已渲染
+        setTimeout(initWithdrawModal, 500);
+
+        // ========== 兑换功能实现 ==========
+        
+        // 兑换状态管理
+        let exchangeState = {
+          direction: "fiatToCrypto", // "fiatToCrypto" | "cryptoToFiat"
+          fromAsset: "USD",
+          toAsset: "USDT",
+          fromNetwork: "ERC20", // 源资产网络（仅数字货币）
+          toNetwork: "ERC20", // 目标资产网络（仅数字货币）
+          fromAmount: 0,
+          toAmount: 0,
+        };
+
+        // 支持的资产列表
+        const fiatAssets = ["USD", "HKD", "EUR"];
+        const cryptoAssets = ["USDT", "USDC"];
+
+        // 资产余额数据（从现有资产数据中获取）
+        const assetBalances = {
+          USD: 10000.00,
+          HKD: 50000.00,
+          EUR: 20000.00,
+          // USDT 不同链的余额
+          "USDT_ERC20": 6.947008,
+          "USDT_Polygon": 4.000000,
+          // USDC 不同链的余额
+          "USDC_ERC20": 3.234567,
+          "USDC_Polygon": 1.000000,
+          "USDC_Arbitrum": 1.000000,
+          "USDC_Solana": 0.000000,
+        };
+        
+        // 获取资产余额（支持链标识）
+        function getAssetBalance(asset, network) {
+          if (network) {
+            const key = `${asset}_${network}`;
+            return assetBalances[key] || assetBalances[asset] || 0;
+          }
+          // 如果没有指定网络，返回所有链的总和（仅用于显示）
+          if (asset === "USDT") {
+            return (assetBalances["USDT_ERC20"] || 0) + (assetBalances["USDT_Polygon"] || 0);
+          } else if (asset === "USDC") {
+            return (assetBalances["USDC_ERC20"] || 0) + (assetBalances["USDC_Polygon"] || 0) + 
+                   (assetBalances["USDC_Arbitrum"] || 0) + (assetBalances["USDC_Solana"] || 0);
+          }
+          return assetBalances[asset] || 0;
+        }
+
+        // 汇率数据（占位，后续可接入真实API）
+        const exchangeRates = {
+          "USD_USDT": 0.98,
+          "USD_USDC": 0.99,
+          "HKD_USDT": 0.125,
+          "HKD_USDC": 0.126,
+          "EUR_USDT": 1.05,
+          "EUR_USDC": 1.06,
+        };
+
+        // 获取汇率（占位函数，后续可接入真实API）
+        function getExchangeRate(from, to) {
+          const key = `${from}_${to}`;
+          const reverseKey = `${to}_${from}`;
+          
+          if (exchangeRates[key]) {
+            return exchangeRates[key];
+          } else if (exchangeRates[reverseKey]) {
+            return 1 / exchangeRates[reverseKey];
+          }
+          
+          // 默认汇率
+          return 1;
+        }
+
+        // 打开兑换弹窗
+        function openExchangeModal(preserveState = false) {
+          const modal = document.getElementById("exchange-modal");
+          if (!modal) {
+            console.error("Exchange modal not found!");
+            return;
+          }
+          
+          // 只有在不保留状态时才重置
+          if (!preserveState) {
+            // 重置状态
+            exchangeState.fromAmount = 0;
+            exchangeState.toAmount = 0;
+            exchangeState.direction = "fiatToCrypto";
+            exchangeState.fromAsset = "USD";
+            exchangeState.toAsset = "USDT";
+            exchangeState.fromNetwork = null;
+            exchangeState.toNetwork = "ERC20";
+          } else {
+            // 只重置金额，保留资产选择
+            exchangeState.fromAmount = 0;
+            exchangeState.toAmount = 0;
+          }
+          
+          // 更新UI
+          updateExchangeUI();
+          
+          // 应用当前语言翻译
+          const currentLang = document.documentElement.lang || "zh";
+          applyLanguage(currentLang);
+          
+          // 显示弹窗
+          modal.classList.add("active");
+          document.body.style.overflow = "hidden";
+        }
+
+        // 关闭兑换弹窗
+        function closeExchangeModal() {
+          const modal = document.getElementById("exchange-modal");
+          if (modal) {
+            modal.classList.remove("active");
+          }
+          document.body.style.overflow = "";
+        }
+
+        // 切换兑换方向
+        function swapExchangeDirection() {
+          const tempAsset = exchangeState.fromAsset;
+          const tempNetwork = exchangeState.fromNetwork;
+          exchangeState.fromAsset = exchangeState.toAsset;
+          exchangeState.fromNetwork = exchangeState.toNetwork;
+          exchangeState.toAsset = tempAsset;
+          exchangeState.toNetwork = tempNetwork;
+          
+          exchangeState.direction = exchangeState.direction === "fiatToCrypto" 
+            ? "cryptoToFiat" 
+            : "fiatToCrypto";
+          
+          // 交换金额
+          const tempAmount = exchangeState.fromAmount;
+          exchangeState.fromAmount = exchangeState.toAmount;
+          exchangeState.toAmount = tempAmount;
+          
+          updateExchangeUI();
+          calculateExchangeAmount();
+        }
+
+        // 更新兑换UI
+        function updateExchangeUI() {
+          // 更新资产选择器
+          updateAssetSelectors();
+          
+          // 更新余额显示
+          updateBalanceDisplay();
+          
+          // 更新金额输入
+          const fromAmountInput = document.getElementById("from-amount");
+          const toAmountInput = document.getElementById("to-amount");
+          if (fromAmountInput) {
+            fromAmountInput.value = exchangeState.fromAmount || "";
+          }
+          if (toAmountInput) {
+            toAmountInput.value = exchangeState.toAmount || "";
+          }
+          
+          // 更新汇率显示
+          updateExchangeRateDisplay();
+        }
+
+        // 获取链图标路径
+        function getChainIconPath(network) {
+          const chainMap = {
+            "ERC20": "images/ethereum.png",
+            "Ethereum": "images/ethereum.png",
+            "Polygon": "images/polygon.png",
+            "Arbitrum": "images/arbitrum.png",
+            "Solana": "images/solana.png",
+          };
+          return chainMap[network] || "";
+        }
+        
+        // 更新资产选择器
+        function updateAssetSelectors() {
+          const fromAssetBtn = document.getElementById("from-asset-btn");
+          const toAssetBtn = document.getElementById("to-asset-btn");
+          const fromAssetName = document.getElementById("from-asset-name");
+          const toAssetName = document.getElementById("to-asset-name");
+          const fromAssetIcon = document.getElementById("from-asset-icon");
+          const toAssetIcon = document.getElementById("to-asset-icon");
+          
+          // 更新源资产显示
+          if (fromAssetBtn && fromAssetName && fromAssetIcon) {
+            let displayName = exchangeState.fromAsset;
+            // 如果是数字货币，显示链标识
+            if (cryptoAssets.includes(exchangeState.fromAsset) && exchangeState.fromNetwork) {
+              displayName = `${exchangeState.fromAsset} (${exchangeState.fromNetwork})`;
+            }
+            fromAssetName.textContent = displayName;
+            const iconPath = getAssetIconPath(exchangeState.fromAsset);
+            let iconHTML = `<img src="${iconPath}" alt="${exchangeState.fromAsset}" />`;
+            // 如果是数字货币，添加链标识
+            if (cryptoAssets.includes(exchangeState.fromAsset) && exchangeState.fromNetwork) {
+              const chainIcon = getChainIconPath(exchangeState.fromNetwork);
+              if (chainIcon) {
+                iconHTML += `<span class="chain-badge" style="position: absolute; top: -4px; right: -4px; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 1.5px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.2); overflow: hidden; z-index: 10;"><img src="${chainIcon}" alt="${exchangeState.fromNetwork}" style="width: 100%; height: 100%; object-fit: cover;" /></span>`;
+              }
+            }
+            fromAssetIcon.innerHTML = iconHTML;
+            fromAssetIcon.style.position = "relative";
+            fromAssetIcon.style.overflow = "visible";
+            fromAssetIcon.style.zIndex = "1";
+          }
+          
+          // 更新目标资产显示
+          if (toAssetBtn && toAssetName && toAssetIcon) {
+            let displayName = exchangeState.toAsset;
+            // 如果是数字货币，显示链标识
+            if (cryptoAssets.includes(exchangeState.toAsset) && exchangeState.toNetwork) {
+              displayName = `${exchangeState.toAsset} (${exchangeState.toNetwork})`;
+            }
+            toAssetName.textContent = displayName;
+            const iconPath = getAssetIconPath(exchangeState.toAsset);
+            let iconHTML = `<img src="${iconPath}" alt="${exchangeState.toAsset}" />`;
+            // 如果是数字货币，添加链标识
+            if (cryptoAssets.includes(exchangeState.toAsset) && exchangeState.toNetwork) {
+              const chainIcon = getChainIconPath(exchangeState.toNetwork);
+              if (chainIcon) {
+                iconHTML += `<span class="chain-badge" style="position: absolute; top: -4px; right: -4px; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 1.5px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.2); overflow: hidden; z-index: 10;"><img src="${chainIcon}" alt="${exchangeState.toNetwork}" style="width: 100%; height: 100%; object-fit: cover;" /></span>`;
+              }
+            }
+            toAssetIcon.innerHTML = iconHTML;
+            toAssetIcon.style.position = "relative";
+            toAssetIcon.style.overflow = "visible";
+            toAssetIcon.style.zIndex = "1";
+          }
+          
+          // 更新下拉菜单
+          updateAssetDropdown("from");
+          updateAssetDropdown("to");
+        }
+
+        // 获取资产图标路径
+        function getAssetIconPath(asset) {
+          const iconMap = {
+            USD: "images/USD.png",
+            HKD: "images/HKD.png",
+            EUR: "images/EURO.png",
+            USDT: "images/USDT.png",
+            USDC: "images/USDC.png",
+          };
+          return iconMap[asset] || "images/USD.png";
+        }
+
+        // 获取资产支持的网络列表
+        function getAssetNetworks(asset) {
+          if (asset === "USDT") {
+            return ["ERC20", "Polygon"];
+          } else if (asset === "USDC") {
+            return ["ERC20", "Polygon", "Arbitrum", "Solana"];
+          }
+          return [];
+        }
+        
+        // 更新资产下拉菜单
+        function updateAssetDropdown(type) {
+          const dropdownId = type === "from" ? "from-asset-dropdown" : "to-asset-dropdown";
+          const dropdown = document.getElementById(dropdownId);
+          if (!dropdown) return;
+          
+          const isFrom = type === "from";
+          const currentDirection = exchangeState.direction;
+          
+          // 确定可选的资产列表
+          let availableAssets = [];
+          if (isFrom) {
+            // 源资产：根据方向选择法币或数字货币
+            availableAssets = currentDirection === "fiatToCrypto" ? fiatAssets : cryptoAssets;
+          } else {
+            // 目标资产：与源资产相反的类型
+            availableAssets = currentDirection === "fiatToCrypto" ? cryptoAssets : fiatAssets;
+          }
+          
+          // 生成下拉菜单选项
+          dropdown.innerHTML = "";
+          availableAssets.forEach(asset => {
+            const networks = getAssetNetworks(asset);
+            const currentAsset = isFrom ? exchangeState.fromAsset : exchangeState.toAsset;
+            const currentNetwork = isFrom ? exchangeState.fromNetwork : exchangeState.toNetwork;
+            
+            // 如果是数字货币且有多个网络，为每个网络创建一个选项
+            if (networks.length > 0) {
+              networks.forEach(network => {
+                const option = document.createElement("button");
+                option.className = "exchange-asset-option";
+                option.type = "button";
+                const isActive = asset === currentAsset && network === currentNetwork;
+                if (isActive) {
+                  option.classList.add("active");
+                }
+                const chainIcon = getChainIconPath(network);
+                option.innerHTML = `
+                  <span class="exchange-asset-icon" style="position: relative; overflow: visible; z-index: 1;">
+                    <img src="${getAssetIconPath(asset)}" alt="${asset}" />
+                    ${chainIcon ? `<span class="chain-badge" style="position: absolute; top: -4px; right: -4px; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 1.5px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.2); overflow: hidden; z-index: 10; pointer-events: none;"><img src="${chainIcon}" alt="${network}" style="width: 100%; height: 100%; object-fit: cover;" /></span>` : ''}
+                  </span>
+                  <span class="exchange-asset-name" style="overflow: visible; white-space: nowrap;">${asset} (${network})</span>
+                `;
+                option.onclick = function() {
+                  if (isFrom) {
+                    exchangeState.fromAsset = asset;
+                    exchangeState.fromNetwork = network;
+                  } else {
+                    exchangeState.toAsset = asset;
+                    exchangeState.toNetwork = network;
+                  }
+                  updateExchangeUI();
+                  calculateExchangeAmount();
+                  dropdown.classList.remove("active");
+                };
+                dropdown.appendChild(option);
+              });
+            } else {
+              // 法币或没有网络区分的资产
+              const option = document.createElement("button");
+              option.className = "exchange-asset-option";
+              option.type = "button";
+              if (asset === currentAsset) {
+                option.classList.add("active");
+              }
+              option.innerHTML = `
+                <span class="exchange-asset-icon" style="position: relative; overflow: visible; z-index: 1;">
+                  <img src="${getAssetIconPath(asset)}" alt="${asset}" />
+                </span>
+                <span class="exchange-asset-name" style="overflow: visible; white-space: nowrap;">${asset}</span>
+              `;
+              option.onclick = function() {
+                if (isFrom) {
+                  exchangeState.fromAsset = asset;
+                  exchangeState.fromNetwork = null;
+                } else {
+                  exchangeState.toAsset = asset;
+                  exchangeState.toNetwork = null;
+                }
+                updateExchangeUI();
+                calculateExchangeAmount();
+                dropdown.classList.remove("active");
+              };
+              dropdown.appendChild(option);
+            }
+          });
+        }
+
+        // 更新余额显示
+        function updateBalanceDisplay() {
+          const fromBalanceValue = document.getElementById("from-balance-value");
+          const toBalanceValue = document.getElementById("to-balance-value");
+          
+          if (fromBalanceValue) {
+            const balance = getAssetBalance(exchangeState.fromAsset, exchangeState.fromNetwork);
+            fromBalanceValue.textContent = balance.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 8
+            });
+          }
+          
+          if (toBalanceValue) {
+            const balance = getAssetBalance(exchangeState.toAsset, exchangeState.toNetwork);
+            toBalanceValue.textContent = balance.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 8
+            });
+          }
+        }
+
+        // 计算兑换金额
+        function calculateExchangeAmount() {
+          const fromAmount = parseFloat(exchangeState.fromAmount) || 0;
+          if (fromAmount <= 0) {
+            exchangeState.toAmount = 0;
+            updateToAmountDisplay();
+            updateExchangeInfo();
+            return;
+          }
+          
+          const rate = getExchangeRate(exchangeState.fromAsset, exchangeState.toAsset);
+          const feeRate = 0.001; // 手续费率 0.1%
+          const fee = fromAmount * feeRate;
+          const receivedAmount = (fromAmount - fee) * rate;
+          
+          exchangeState.toAmount = receivedAmount;
+          updateToAmountDisplay();
+          updateExchangeInfo(fee, receivedAmount);
+        }
+
+        // 更新目标金额显示
+        function updateToAmountDisplay() {
+          const toAmountInput = document.getElementById("to-amount");
+          if (toAmountInput) {
+            toAmountInput.value = exchangeState.toAmount > 0 
+              ? exchangeState.toAmount.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 8
+                })
+              : "";
+          }
+        }
+
+        // 更新汇率显示
+        function updateExchangeRateDisplay() {
+          const rateDisplay = document.getElementById("exchange-rate-display");
+          if (rateDisplay) {
+            const rate = getExchangeRate(exchangeState.fromAsset, exchangeState.toAsset);
+            rateDisplay.textContent = `1 ${exchangeState.fromAsset} = ${rate.toFixed(4)} ${exchangeState.toAsset}`;
+          }
+        }
+
+        // 更新兑换信息
+        function updateExchangeInfo(fee = 0, receivedAmount = 0) {
+          const feeDisplay = document.getElementById("exchange-fee-display");
+          const receivedDisplay = document.getElementById("exchange-received-display");
+          
+          if (feeDisplay) {
+            feeDisplay.textContent = fee > 0 
+              ? `${fee.toFixed(2)} ${exchangeState.fromAsset}`
+              : "0.00";
+          }
+          
+          if (receivedDisplay) {
+            receivedDisplay.textContent = receivedAmount > 0
+              ? `${receivedAmount.toFixed(2)} ${exchangeState.toAsset}`
+              : "0.00";
+          }
+        }
+
+        // 验证兑换
+        function validateExchange() {
+          const fromAmount = parseFloat(exchangeState.fromAmount) || 0;
+          const fromBalance = assetBalances[exchangeState.fromAsset] || 0;
+          const minAmount = 10; // 最小兑换金额
+          
+          if (fromAmount <= 0) {
+            alert("请输入兑换金额");
+            return false;
+          }
+          
+          if (fromAmount < minAmount) {
+            alert(`最小兑换金额为 ${minAmount} ${exchangeState.fromAsset}`);
+            return false;
+          }
+          
+          if (fromAmount > fromBalance) {
+            alert("余额不足");
+            return false;
+          }
+          
+          return true;
+        }
+
+        // 确认兑换
+        function confirmExchange() {
+          if (!validateExchange()) {
+            return;
+          }
+          
+          const fromAmount = parseFloat(exchangeState.fromAmount) || 0;
+          const rate = getExchangeRate(exchangeState.fromAsset, exchangeState.toAsset);
+          const feeRate = 0.001;
+          const fee = fromAmount * feeRate;
+          const receivedAmount = (fromAmount - fee) * rate;
+          
+          if (confirm(`确认兑换 ${fromAmount} ${exchangeState.fromAsset} 为 ${receivedAmount.toFixed(2)} ${exchangeState.toAsset}？\n手续费: ${fee.toFixed(2)} ${exchangeState.fromAsset}`)) {
+            console.log("Exchange confirmed:", {
+              from: exchangeState.fromAsset,
+              to: exchangeState.toAsset,
+              amount: fromAmount,
+              received: receivedAmount,
+              fee: fee
+            });
+            alert("兑换申请已提交，处理中...");
+            closeExchangeModal();
+          }
+        }
+
+        // 初始化兑换弹窗
+        function initExchangeModal() {
+          // 关闭按钮
+          const closeBtn = document.getElementById("exchange-close");
+          if (closeBtn) {
+            closeBtn.onclick = function(e) {
+              e.preventDefault();
+              closeExchangeModal();
+            };
+          }
+          
+          // 点击背景关闭
+          const modal = document.getElementById("exchange-modal");
+          if (modal) {
+            modal.onclick = function(e) {
+              if (e.target === modal) {
+                closeExchangeModal();
+              }
+            };
+          }
+          
+          // ESC键关闭
+          document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") {
+              const modal = document.getElementById("exchange-modal");
+              if (modal && modal.classList.contains("active")) {
+                closeExchangeModal();
+              }
+            }
+          });
+          
+          // 切换方向按钮
+          const swapBtn = document.getElementById("exchange-swap-btn");
+          if (swapBtn) {
+            swapBtn.onclick = function() {
+              swapExchangeDirection();
+            };
+          }
+          
+          // 源资产选择按钮
+          const fromAssetBtn = document.getElementById("from-asset-btn");
+          if (fromAssetBtn) {
+            fromAssetBtn.onclick = function(e) {
+              e.stopPropagation();
+              const dropdown = document.getElementById("from-asset-dropdown");
+              if (dropdown) {
+                dropdown.classList.toggle("active");
+              }
+              // 点击外部关闭
+              document.addEventListener("click", function closeDropdown(e) {
+                if (!fromAssetBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                  dropdown.classList.remove("active");
+                  document.removeEventListener("click", closeDropdown);
+                }
+              });
+            };
+          }
+          
+          // 目标资产选择按钮
+          const toAssetBtn = document.getElementById("to-asset-btn");
+          if (toAssetBtn) {
+            toAssetBtn.onclick = function(e) {
+              e.stopPropagation();
+              const dropdown = document.getElementById("to-asset-dropdown");
+              if (dropdown) {
+                dropdown.classList.toggle("active");
+              }
+              // 点击外部关闭
+              document.addEventListener("click", function closeDropdown(e) {
+                if (!toAssetBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                  dropdown.classList.remove("active");
+                  document.removeEventListener("click", closeDropdown);
+                }
+              });
+            };
+          }
+          
+          // 金额输入监听
+          const fromAmountInput = document.getElementById("from-amount");
+          if (fromAmountInput) {
+            fromAmountInput.addEventListener("input", function() {
+              exchangeState.fromAmount = parseFloat(this.value) || 0;
+              calculateExchangeAmount();
+            });
+          }
+          
+          // 确认兑换按钮
+          const confirmBtn = document.getElementById("exchange-confirm-btn");
+          if (confirmBtn) {
+            confirmBtn.onclick = function() {
+              confirmExchange();
+            };
+          }
+        }
+
+        // 绑定兑换按钮
+        function bindExchangeButtons() {
+          // 绑定主兑换按钮
+          const mainBtn = document.getElementById("exchange-btn-main");
+          if (mainBtn) {
+            mainBtn.onclick = function() {
+              openExchangeModal();
+            };
+          }
+          
+          // 绑定表格中的兑换按钮
+          const tableExchangeButtons = document.querySelectorAll('.action-link[data-i18n="actionExchange"]');
+          tableExchangeButtons.forEach(btn => {
+            btn.onclick = function() {
+              const asset = this.getAttribute('data-asset');
+              const network = this.getAttribute('data-network');
+              if (asset) {
+                // 判断资产类型并设置初始状态
+                if (["USD", "HKD", "EUR"].includes(asset)) {
+                  exchangeState.direction = "fiatToCrypto";
+                  exchangeState.fromAsset = asset;
+                  exchangeState.toAsset = "USDT";
+                  exchangeState.toNetwork = "ERC20";
+                } else if (["USDT", "USDC"].includes(asset)) {
+                  exchangeState.direction = "cryptoToFiat";
+                  exchangeState.fromAsset = asset;
+                  exchangeState.fromNetwork = network || "ERC20";
+                  exchangeState.toAsset = "USD";
+                }
+                // 传递 preserveState = true 以保留资产选择
+                openExchangeModal(true);
+              } else {
+                openExchangeModal();
+              }
+            };
+          });
+        }
+
+        // 页面加载后初始化兑换功能
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function() {
+            initExchangeModal();
+            bindExchangeButtons();
+          });
+        } else {
+          initExchangeModal();
+          bindExchangeButtons();
+        }
+        
+        // 延迟初始化确保所有元素都已渲染
+        setTimeout(function() {
+          initExchangeModal();
+          bindExchangeButtons();
+        }, 500);
       })();
     </script>
   </body>

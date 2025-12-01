@@ -1,14 +1,15 @@
-# macOS
+# OS files
 .DS_Store
-.AppleDouble
-.LSOverride
+Thumbs.db
+*.swp
+*.swo
+*~
 
 # IDE
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
+*.sublime-project
+*.sublime-workspace
 
 # Logs
 *.log
@@ -17,11 +18,8 @@ npm-debug.log*
 # Dependencies
 node_modules/
 
-# Build files
+# Build outputs
 dist/
 build/
-
-# Environment variables
-.env
-.env.local
-
+*.min.js
+*.min.css
